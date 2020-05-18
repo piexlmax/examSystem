@@ -23,7 +23,7 @@
       <el-table-column label="考题名称" prop="testPaperName" width="120"></el-table-column>
 
       <el-table-column label="出题人" prop="testPaperAuthor" width="120"></el-table-column>
-      <el-table-column label="考试须知" prop="testPaperNote" width="120"></el-table-column>
+      <el-table-column label="考生须知" prop="testPaperNote" width="120"></el-table-column>
       <el-table-column label="考试起止时间" width="300">
         <template slot-scope="scope">
           <div>{{scope.row.testPaperStartTime|formatDate}} 至 {{scope.row.testPaperEndTime|formatDate}}</div>
@@ -37,7 +37,7 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作" width="460">
         <template slot-scope="scope">
           <el-button v-if="scope.row.testPaperSvg" @click="viewTestPaper(scope.row)" size="small" type="text">查看SVG</el-button>
           <el-button @click="updateTestPaper(scope.row)" size="small" type="text">变更</el-button>
@@ -253,7 +253,7 @@ export default {
             type: "info",
             message: "已取消删除"
           });
-          this.mouldFileList = [{ url: file.url, name: file.name }];
+          this.svgFileList = [{ url: file.url, name: file.name }];
         });
     },
     async beforeRemoveMould(file) {

@@ -36,7 +36,9 @@ export default {
       top: 0,
       active:{},
       activeNode:{},
-      formData:null
+      formData:null,
+       isCollapse: false,
+      isMobile:false,
     };
   },
   methods: {
@@ -63,6 +65,7 @@ export default {
             type:"error",
             message:res.data.message
           })
+          window.location.reload()
         }
       },
       async download(type){
@@ -117,6 +120,12 @@ export default {
     }
   },
   async created() {
+    this.$bus.on('mobile',(isMobile)=>{
+      this.isMobile = isMobile
+    })
+    this.$bus.on('collapse',(isCollapse)=>{
+      this.isCollapse = isCollapse
+    })
     const res = await getTestPaperSvg({ ID: Number(this.$route.query.id) });
     if (res.code == 0) {
       this.svg = res.data.retestPaper;
@@ -150,6 +159,8 @@ export default {
 .svgInfo {
   display: flex;
   justify-content: center;
+  height:calc(100vh - 195px);
+  overflow:auto;
 }
 
 .contextmenu {

@@ -9,6 +9,8 @@ import (
 func InitExaminationRecordRouter(Router *gin.RouterGroup) {
 	ExaminationRecordRouter := Router.Group("examinationRecord").Use(middleware.JWTAuth()).Use(middleware.CasbinHandler())
 	{
+		ExaminationRecordRouter.POST("offlineAppraise",v1.OfflineAppraise)
+		ExaminationRecordRouter.PUT("submitTest", v1.SubmitTest)   // 提交试卷
 		ExaminationRecordRouter.POST("createExaminationRecord", v1.CreateExaminationRecord)     // 新建ExaminationRecord
 		ExaminationRecordRouter.DELETE("deleteExaminationRecord", v1.DeleteExaminationRecord)   //删除ExaminationRecord
 		ExaminationRecordRouter.PUT("updateExaminationRecord", v1.UpdateExaminationRecord)   //更新ExaminationRecord

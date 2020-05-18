@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"gin-vue-admin/global"
 	"gin-vue-admin/model"
 	"gin-vue-admin/model/request"
@@ -103,6 +104,7 @@ func GetTestPaperMould(ID uint) (err error, mould string) {
 }
 
 func RemoveTestPaperFile(testPaper *model.TestPaper) (err error) {
+	var inTestPaper model.TestPaper
 	updateMap := map[string]string{}
 	if testPaper.TestPaperSvg != "" {
 		updateMap["test_paper_svg"] = ""
@@ -110,12 +112,16 @@ func RemoveTestPaperFile(testPaper *model.TestPaper) (err error) {
 	if testPaper.TestPaperMould != "" {
 		updateMap["test_paper_mould"] = ""
 	}
-	db:= global.GVA_DB.Where("id = ?",testPaper.ID).First(testPaper)
+	db:= global.GVA_DB.Where("id = ?",testPaper.ID).First(&inTestPaper)
 	if db.RecordNotFound(){
 		return nil
 	}
 	err = db.Updates(updateMap).Error
 	if testPaper.TestPaperSvg != "" {
+		err = InitTestPaperSvgNode(testPaper.ID)
+		if err!=nil{
+			return err
+		}
 		err = os.Remove(testPaper.TestPaperSvg)
 	}
 	if testPaper.TestPaperMould != "" {
@@ -152,6 +158,31 @@ func UploadTestPaperSvgNode(filetype string,nodeId string,testPaperID string,fil
 	return err
 }
 
+func InitTestPaperSvgNode(testPaperID uint)(err error){
+	var nodes []model.TestPaperSvgNode
+	global.GVA_DB.Where("test_paper_id = ?",testPaperID).Find(&nodes)
+	fmt.Println(nodes)
+	for _,v:= range nodes{
+		if v.Flow!=""{
+			os.Remove(v.Flow)
+		}
+		if v.Log!=""{
+			os.Remove(v.Log)
+		}
+		if v.Configuration!=""{
+			os.Remove(v.Configuration)
+		}
+		if v.SourceCode!=""{
+			os.Remove(v.SourceCode)
+		}
+		v.Flow = ""
+		v.Log = ""
+		v.Configuration = ""
+		v.SourceCode = ""
+		err = global.GVA_DB.Save(&v).Error
+	}
+	return err
+}
 
 func ClearTestPaperSvgNode(filetype string,nodeId string,testPaperID uint)(err error) {
 	var node model.TestPaperSvgNode
@@ -178,6 +209,7 @@ func ClearTestPaperSvgNode(filetype string,nodeId string,testPaperID uint)(err e
 }
 
 func PublicTestPaper(testPaper *model.TestPaper)(err error){
+	var examinations []model.SysUser
 	var testPapers []model.TestPaper
 	var testPaperNode model.TestPaper
 	err = global.GVA_DB.Find(&testPapers).Update("test_paper_status",false).Error
@@ -185,6 +217,15 @@ func PublicTestPaper(testPaper *model.TestPaper)(err error){
 		return err
 	}
 	err = global.GVA_DB.Where("id = ?",testPaper.ID).First(&testPaperNode).Update("test_paper_status",testPaper.TestPaperStatus).Error
+	if testPaper.TestPaperStatus {
+		err := global.GVA_DB.Where("authority_id = 777").Find(&examinations).Error
+		if err!=nil {
+			return err
+		}
+		for _,v := range examinations{
+			err = global.GVA_DB.Where("test_paper_id = ? AND sys_user_id = ?",testPaper.ID,v.ID).FirstOrCreate(&model.ExaminationRecord{TestPaperID: testPaper.ID,SysUserID: v.ID}).Error
+		}
+	}
 	return err
 }
 

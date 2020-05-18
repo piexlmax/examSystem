@@ -4,6 +4,12 @@ import (
 	"gin-vue-admin/global"
 	"gin-vue-admin/model"
 	"gin-vue-admin/model/request"
+	"gin-vue-admin/utils"
+	"io"
+	"io/ioutil"
+	"mime/multipart"
+	"os"
+	"time"
 )
 
 // @title    CreateExaminationRecord
@@ -13,7 +19,14 @@ import (
 // @return    err             error
 
 func CreateExaminationRecord(examinationRecord model.ExaminationRecord) (err error) {
-	err = global.GVA_DB.Create(&examinationRecord).Error
+	var inExaminationRecord model.ExaminationRecord
+	db := global.GVA_DB.Where("sys_user_id = ? AND test_paper_id = ?",examinationRecord.SysUserID,examinationRecord.TestPaperID).First(&inExaminationRecord)
+	flag := db.RecordNotFound()
+	if flag{
+		err = global.GVA_DB.Create(&examinationRecord).Error
+	}else{
+		err = db.Update("agreement",examinationRecord.Agreement).Error
+	}
 	return err
 }
 
@@ -35,7 +48,8 @@ func DeleteExaminationRecord(examinationRecord model.ExaminationRecord) (err err
 // @return                    error
 
 func UpdateExaminationRecord(examinationRecord *model.ExaminationRecord) (err error) {
-	err = global.GVA_DB.Save(examinationRecord).Error
+	var inExaminationRecord model.ExaminationRecord
+	err = global.GVA_DB.Where("id = ?",examinationRecord.ID).First(&inExaminationRecord).Update("score",examinationRecord.Score).Update("appraise",examinationRecord.Appraise).Error
 	return err
 }
 
@@ -61,12 +75,54 @@ func GetExaminationRecord(ResExaminationRecord request.ReqExaminationRecord) (er
 // @param     info            PageInfo
 // @return                    error
 
-func GetExaminationRecordInfoList(info request.PageInfo) (err error, list interface{}, total int) {
+func GetExaminationRecordInfoList(exa model.ExaminationRecord,info request.PageInfo) (err error, list interface{}, total int) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	db := global.GVA_DB
+	if exa.TestPaperID != 0 {
+		db = db.Where("test_paper_id = ?", exa.TestPaperID)
+	}
+	if exa.SysUserID != 0 {
+		db = db.Where("sys_user_id = ?", exa.SysUserID)
+	}
+	db = db.Order("test_paper_id desc")
 	var examinationRecords []model.ExaminationRecord
 	err = db.Find(&examinationRecords).Count(&total).Error
-	err = db.Limit(limit).Offset(offset).Find(&examinationRecords).Error
+	err = db.Preload("SysUser").Preload("TestPaper").Limit(limit).Offset(offset).Find(&examinationRecords).Error
 	return err, examinationRecords, total
+}
+
+
+func SubmitTest(sysUserId string, testPaperId string,file *multipart.FileHeader)(err error){
+	var examinationRecord model.ExaminationRecord
+	timeString := time.Now().Format("20060102150405")
+	utils.CreateDir("./test-resource/record/"+testPaperId)
+	src, err := file.Open()
+	if err != nil {
+		return err
+	}
+	defer src.Close()
+	testPath :="./test-resource/record/"+testPaperId+"/"+ timeString +"-"+file.Filename
+	out, err := os.Create(testPath)
+	if err != nil {
+		return err
+	}
+	defer out.Close()
+	_, err = io.Copy(out, src)
+	err = global.GVA_DB.Where("sys_user_id = ? AND test_paper_id = ?",sysUserId,testPaperId).First(&examinationRecord).Update("test_path",testPath).Error
+	return err
+}
+
+func OfflineAppraise(testPaperId string)(err error,path string){
+	files, _ := ioutil.ReadDir("./test-resource/record/"+testPaperId)
+	var fileList []string
+	for _, f := range files {
+		fileList = append(fileList, "./test-resource/record/"+testPaperId+"/"+f.Name())
+	}
+	err = utils.ZipFiles("./kt.zip", fileList, ".", ".")
+	if err!=nil {
+		return err,""
+	}
+	path = "./kt.zip"
+	return err,path
 }

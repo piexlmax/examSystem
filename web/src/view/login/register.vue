@@ -1,9 +1,9 @@
 <template>
-  <div id="userLayout" class="user-layout-wrapper">
+  <div class="user-layout-wrapper" id="userLayout">
     <div class="container">
       <div class="top">
         <div class="desc">
-          <img class="logo_login" src="@/assets/logo_login.png" alt="" />
+          <img alt class="logo_login" src="@/assets/logo_login.png" />
         </div>
         <div class="header">
           <a href="/">
@@ -16,68 +16,62 @@
         <el-form
           :model="registerForm"
           :rules="rules"
-          ref="registerForm"
           @keyup.enter.native="submitForm"
+          ref="registerForm"
         >
           <el-form-item prop="username">
-            <el-input
-              placeholder="请输入用户名"
-              v-model="registerForm.username"
-            >
-            <i
-                class="el-input__icon el-icon-user"
-                slot="suffix"
-              ></i></el-input>
+            <el-input placeholder="请输入用户名" v-model="registerForm.username">
+              <i class="el-input__icon el-icon-user" slot="suffix"></i>
+            </el-input>
           </el-form-item>
+
+          <el-form-item prop="nickName">
+            <el-input placeholder="请输入姓名" v-model="registerForm.nickName">
+              <i class="el-input__icon el-icon-user" slot="suffix"></i>
+            </el-input>
+          </el-form-item>
+
           <el-form-item prop="password">
             <el-input
               :type="lock === 'lock' ? 'password' : 'text'"
               placeholder="请输入密码"
               v-model="registerForm.password"
             >
-              <i
-                :class="'el-input__icon el-icon-' + lock"
-                @click="changeLock"
-                slot="suffix"
-              ></i>
+              <i :class="'el-input__icon el-icon-' + lock" @click="changeLock" slot="suffix"></i>
             </el-input>
           </el-form-item>
           <el-form-item prop="rePassword" style="position:relative">
-          <el-input
-            :type="lock==='lock'?'password':'text'"
-            placeholder="请再次输入密码"
-            v-model="registerForm.rePassword"
-          >
-            <i :class="'el-input__icon el-icon-' + lock" @click="changeLock" slot="suffix"></i>
-          </el-input>
-        </el-form-item>
-        
-          <el-form-item>
-            <el-button type="primary" @click="submitForm" style="width:100%"
-              >注 册</el-button
+            <el-input
+              :type="lock==='lock'?'password':'text'"
+              placeholder="请再次输入密码"
+              v-model="registerForm.rePassword"
             >
+              <i :class="'el-input__icon el-icon-' + lock" @click="changeLock" slot="suffix"></i>
+            </el-input>
+          </el-form-item>
+
+          <el-form-item>
+            <el-button @click="submitForm" style="width:100%" type="primary">注 册</el-button>
           </el-form-item>
         </el-form>
       </div>
 
       <div class="footer">
         <div class="links">
-          <a href="http://doc.henrongyi.top/"
-            ><img src="@/assets/docs.png" class="link-icon"
-          /></a>
-          <a href="https://www.yuque.com/flipped-aurora/"
-            ><img src="@/assets/yuque.png" class="link-icon"
-          /></a>
-          <a href="https://github.com/flipped-aurora/gin-vue-admin"
-            ><img src="@/assets/github.png" class="link-icon"
-          /></a>
-          <a href="https://space.bilibili.com/322210472"
-            ><img src="@/assets/video.png" class="link-icon"
-          /></a>
+          <a href="http://doc.henrongyi.top/">
+            <img class="link-icon" src="@/assets/docs.png" />
+          </a>
+          <a href="https://www.yuque.com/flipped-aurora/">
+            <img class="link-icon" src="@/assets/yuque.png" />
+          </a>
+          <a href="https://github.com/flipped-aurora/gin-vue-admin">
+            <img class="link-icon" src="@/assets/github.png" />
+          </a>
+          <a href="https://space.bilibili.com/322210472">
+            <img class="link-icon" src="@/assets/video.png" />
+          </a>
         </div>
-        <div class="copyright">
-          Copyright &copy; 2020 💖flipped-aurora
-        </div>
+        <div class="copyright">Copyright &copy; 2020 💖flipped-aurora</div>
       </div>
     </div>
   </div>
@@ -103,6 +97,14 @@ export default {
         callback()
       }
     }
+    const checkNickname = (rule, value, callback) => {
+      if (value.length < 2 || value.length > 12) {
+        return callback(new Error('请输入正确的姓名'))
+      } else {
+        callback()
+      }
+    }
+
     const checkPassword = (rule, value, callback) => {
       if (value.length < 6 || value.length > 12) {
         return callback(new Error('请输入正确的密码'))
@@ -115,11 +117,14 @@ export default {
       lock: 'lock',
       registerForm: {
         username: '',
+        nickName: '',
         password: '',
-        rePassword: ''
+        rePassword: '',
+        authorityId:'777'
       },
       rules: {
         username: [{ validator: checkUsername, trigger: 'blur' }],
+        nickName: [{ validator: checkNickname, trigger: 'blur' }],
         password: [{ validator: checkPassword, trigger: 'blur' }],
         rePassword: [{ validator: ratioPassword, trigger: 'blur' }]
       }
@@ -137,7 +142,7 @@ export default {
               message: '注册成功',
               showClose: true
             })
-            this.$router.push({name:"login"})
+            this.$router.push({ name: 'login' })
           }
         } else {
           this.$message({
@@ -242,7 +247,7 @@ export default {
         .title {
           font-size: 33px;
           color: rgba(0, 0, 0, 0.85);
-          font-family: Avenir, "Helvetica Neue", Arial, Helvetica, sans-serif;
+          font-family: Avenir, 'Helvetica Neue', Arial, Helvetica, sans-serif;
           font-weight: 600;
           position: relative;
           top: 2px;

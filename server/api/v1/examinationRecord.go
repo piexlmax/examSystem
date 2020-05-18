@@ -8,6 +8,7 @@ import (
 	resp "gin-vue-admin/model/response"
 	"gin-vue-admin/service"
 	"github.com/gin-gonic/gin"
+	"os"
 )
 
 // @Tags ExaminationRecord
@@ -95,9 +96,9 @@ func FindExaminationRecord(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /examinationRecord/getExaminationRecordList [get]
 func GetExaminationRecordList(c *gin.Context) {
-	var pageInfo request.PageInfo
+	var pageInfo request.SearchRecordParams
 	_ = c.ShouldBindQuery(&pageInfo)
-	err, list, total := service.GetExaminationRecordInfoList(pageInfo)
+	err, list, total := service.GetExaminationRecordInfoList(pageInfo.ExaminationRecord,pageInfo.PageInfo)
 	if err != nil {
 		response.FailWithMessage(fmt.Sprintf("获取数据失败，%v", err), c)
 	} else {
@@ -107,5 +108,37 @@ func GetExaminationRecordList(c *gin.Context) {
 			Page:     pageInfo.Page,
 			PageSize: pageInfo.PageSize,
 		}, c)
+	}
+}
+
+
+func SubmitTest(c *gin.Context) {
+	file,_ := c.FormFile("file")
+	testPaperID := c.PostForm("testPaperId")
+	sysUserId := c.PostForm("sysUserId")
+	err := service.SubmitTest(sysUserId,testPaperID,file)
+	if err != nil {
+		response.FailWithMessage(fmt.Sprintf("提交失败，%v", err), c)
+	} else {
+		response.Ok(c)
+	}
+}
+
+
+
+
+func OfflineAppraise(c *gin.Context) {
+	var examinationRecord  request.ReqExaminationRecord
+	_ = c.ShouldBindJSON(&examinationRecord)
+	err,path := service.OfflineAppraise(examinationRecord.TestPaperID)
+	if err != nil {
+		response.FailWithMessage(fmt.Sprintf("创建失败，%v", err), c)
+		os.Remove(path)
+	} else {
+		c.Writer.Header().Add("Content-Disposition", fmt.Sprintf("attachment; filename=%s", "kz.zip")) //fmt.Sprintf("attachment; filename=%s", filename)对下载的文件重命名
+		c.Writer.Header().Add("Content-Type", "application/json")
+		c.Writer.Header().Add("success", "true")
+		c.File(path)
+		os.Remove(path)
 	}
 }
