@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : pandora
+ Source Server         : qmplus
  Source Server Type    : MySQL
- Source Server Version : 50640
+ Source Server Version : 50644
  Source Host           : localhost:3306
  Source Schema         : demo
 
  Target Server Type    : MySQL
- Target Server Version : 50640
+ Target Server Version : 50644
  File Encoding         : 65001
 
- Date: 17/05/2020 22:14:43
+ Date: 18/05/2020 17:57:21
 */
 
 SET NAMES utf8mb4;
@@ -34,85 +34,6 @@ CREATE TABLE `casbin_rule`  (
 -- ----------------------------
 -- Records of casbin_rule
 -- ----------------------------
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/base/login', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/base/register', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/api/createApi', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/api/getApiList', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/api/getApiById', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/api/deleteApi', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/api/updateApi', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/api/getAllApis', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/authority/createAuthority', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/authority/deleteAuthority', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/authority/getAuthorityList', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/authority/setDataAuthority', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/menu/getMenu', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/menu/getMenuList', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/menu/addBaseMenu', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/menu/getBaseMenuTree', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/menu/addMenuAuthority', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/menu/getMenuAuthority', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/menu/deleteBaseMenu', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/menu/updateBaseMenu', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/menu/getBaseMenuById', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/user/changePassword', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/user/uploadHeaderImg', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/user/deleteUser', 'DELETE', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/user/getUserList', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/user/setUserAuthority', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/fileUploadAndDownload/upload', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/fileUploadAndDownload/getFileList', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/fileUploadAndDownload/deleteFile', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/casbin/updateCasbin', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/casbin/getPolicyPathByAuthorityId', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/jwt/jsonInBlacklist', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/system/getSystemConfig', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/system/setSystemConfig', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/customer/customer', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/customer/customer', 'PUT', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/customer/customer', 'DELETE', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/customer/customer', 'GET', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '8881', '/customer/customerList', 'GET', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/base/login', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/base/register', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/api/createApi', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/api/getApiList', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/api/getApiById', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/api/deleteApi', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/api/updateApi', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/api/getAllApis', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/authority/createAuthority', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/authority/deleteAuthority', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/authority/getAuthorityList', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/authority/setDataAuthority', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/menu/getMenu', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/menu/getMenuList', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/menu/addBaseMenu', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/menu/getBaseMenuTree', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/menu/addMenuAuthority', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/menu/getMenuAuthority', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/menu/deleteBaseMenu', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/menu/updateBaseMenu', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/menu/getBaseMenuById', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/user/changePassword', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/user/uploadHeaderImg', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/user/deleteUser', 'DELETE', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/user/getUserList', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/user/setUserAuthority', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/fileUploadAndDownload/upload', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/fileUploadAndDownload/getFileList', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/fileUploadAndDownload/deleteFile', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/casbin/updateCasbin', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/casbin/getPolicyPathByAuthorityId', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/jwt/jsonInBlacklist', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/system/getSystemConfig', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/system/setSystemConfig', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/customer/customer', 'POST', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/customer/customer', 'PUT', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/customer/customer', 'DELETE', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/customer/customer', 'GET', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/customer/customerList', 'GET', '', '', '');
-INSERT INTO `casbin_rule` VALUES ('p', '9528', '/autoCode/createTemp', 'POST', '', '', '');
 INSERT INTO `casbin_rule` VALUES ('p', '888', '/base/login', 'POST', '', '', '');
 INSERT INTO `casbin_rule` VALUES ('p', '888', '/base/register', 'POST', '', '', '');
 INSERT INTO `casbin_rule` VALUES ('p', '888', '/api/createApi', 'POST', '', '', '');
@@ -177,6 +98,59 @@ INSERT INTO `casbin_rule` VALUES ('p', '888', '/examinationRecord/deleteExaminat
 INSERT INTO `casbin_rule` VALUES ('p', '888', '/examinationRecord/updateExaminationRecord', 'PUT', '', '', '');
 INSERT INTO `casbin_rule` VALUES ('p', '888', '/examinationRecord/findExaminationRecord', 'GET', '', '', '');
 INSERT INTO `casbin_rule` VALUES ('p', '888', '/examinationRecord/getExaminationRecordList', 'GET', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '888', '/examinationRecord/submitTest', 'PUT', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '888', '/examinationRecord/offlineAppraise', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/base/login', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/base/register', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/menu/getMenu', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/user/changePassword', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/user/uploadHeaderImg', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/user/deleteUser', 'DELETE', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/user/getUserList', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/user/setUserAuthority', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/jwt/jsonInBlacklist', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/testPaper/createTestPaper', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/testPaper/deleteTestPaper', 'DELETE', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/testPaper/updateTestPaper', 'PUT', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/testPaper/findTestPaper', 'GET', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/testPaper/getTestPaperList', 'GET', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/testPaper/uploadSvg', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/testPaper/getTestPaperSvg', 'GET', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/testPaper/getTestPaperMould', 'GET', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/testPaper/uploadMould', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/testPaper/removeTestPaperFile', 'DELETE', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/testPaper/findAndCreateTestPaperSvgNode', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/testPaper/uploadTestPaperSvgNode', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/testPaper/downloadTestPaperSvgNode', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/testPaper/clearTestPaperSvgNode', 'DELETE', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/testPaper/publicTestPaper', 'PUT', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/testPaper/getActiveTestPaper', 'GET', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/examinationRecord/createExaminationRecord', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/examinationRecord/deleteExaminationRecord', 'DELETE', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/examinationRecord/updateExaminationRecord', 'PUT', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/examinationRecord/findExaminationRecord', 'GET', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/examinationRecord/getExaminationRecordList', 'GET', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/examinationRecord/submitTest', 'PUT', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '666', '/examinationRecord/offlineAppraise', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/base/login', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/base/register', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/menu/getMenu', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/user/changePassword', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/user/uploadHeaderImg', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/jwt/jsonInBlacklist', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/testPaper/findTestPaper', 'GET', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/testPaper/getTestPaperSvg', 'GET', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/testPaper/getTestPaperMould', 'GET', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/testPaper/findAndCreateTestPaperSvgNode', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/testPaper/downloadTestPaperSvgNode', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/testPaper/getActiveTestPaper', 'GET', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/examinationRecord/createExaminationRecord', 'POST', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/examinationRecord/deleteExaminationRecord', 'DELETE', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/examinationRecord/updateExaminationRecord', 'PUT', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/examinationRecord/findExaminationRecord', 'GET', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/examinationRecord/getExaminationRecordList', 'GET', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/examinationRecord/submitTest', 'PUT', '', '', '');
+INSERT INTO `casbin_rule` VALUES ('p', '777', '/examinationRecord/offlineAppraise', 'POST', '', '', '');
 
 -- ----------------------------
 -- Table structure for exa_customers
@@ -266,7 +240,7 @@ CREATE TABLE `exa_files`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `examination_records`;
 CREATE TABLE `examination_records`  (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
   `created_at` datetime(0) NULL DEFAULT NULL,
   `updated_at` datetime(0) NULL DEFAULT NULL,
   `deleted_at` datetime(0) NULL DEFAULT NULL,
@@ -274,15 +248,19 @@ CREATE TABLE `examination_records`  (
   `test_paper_id` int(10) UNSIGNED NULL DEFAULT NULL,
   `agreement` tinyint(1) NULL DEFAULT NULL,
   `test_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `score` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `score` double(10, 1) NULL DEFAULT NULL,
+  `appraise` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_examination_records_deleted_at`(`deleted_at`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of examination_records
 -- ----------------------------
-INSERT INTO `examination_records` VALUES (5, '2020-05-17 21:46:26', '2020-05-17 21:46:26', NULL, 10, 1, 1, '', '');
+INSERT INTO `examination_records` VALUES (0000000014, '2020-05-18 16:54:17', '2020-05-18 16:54:17', NULL, 12, 3, 0, '', 0.0, '');
+INSERT INTO `examination_records` VALUES (0000000015, '2020-05-18 16:54:17', '2020-05-18 16:54:17', NULL, 13, 3, 0, '', 0.0, '');
+INSERT INTO `examination_records` VALUES (0000000016, '2020-05-18 17:29:36', '2020-05-18 17:42:15', NULL, 10, 3, 1, './test-resource/record/3/20200518172953-蒋吉兆（5年）高级前端工程师.doc', 99.0, '做的不错');
+INSERT INTO `examination_records` VALUES (0000000017, '2020-05-18 17:48:05', '2020-05-18 17:48:14', NULL, 15, 3, 1, './test-resource/record/3/20200518174814-10.png', 0.0, '');
 
 -- ----------------------------
 -- Table structure for jwt_blacklists
@@ -296,7 +274,7 @@ CREATE TABLE `jwt_blacklists`  (
   `jwt` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_jwt_blacklists_deleted_at`(`deleted_at`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of jwt_blacklists
@@ -347,6 +325,13 @@ INSERT INTO `jwt_blacklists` VALUES (45, '2020-04-15 17:12:54', '2020-04-15 17:1
 INSERT INTO `jwt_blacklists` VALUES (46, '2020-04-15 17:14:47', '2020-04-15 17:14:47', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiY2UwZDY2ODUtYzE1Zi00MTI2LWE1YjQtODkwYmM5ZDIzNTZkIiwiSUQiOjEwLCJOaWNrTmFtZSI6Iui2hee6p-euoeeQhuWRmCIsIkF1dGhvcml0eUlkIjoiODg4IiwiZXhwIjoxNTg3NTQ2Nzg5LCJpc3MiOiJxbVBsdXMiLCJuYmYiOjE1ODY5NDA5ODl9.3jbdl1N0KA8ExFMWXHi3ha4aESKq8yDKDgpSH4Xdsnk');
 INSERT INTO `jwt_blacklists` VALUES (47, '2020-04-22 12:04:20', '2020-04-22 12:04:20', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiY2UwZDY2ODUtYzE1Zi00MTI2LWE1YjQtODkwYmM5ZDIzNTZkIiwiSUQiOjEwLCJOaWNrTmFtZSI6Iui2hee6p-euoeeQhuWRmCIsIkF1dGhvcml0eUlkIjoiODg4IiwiZXhwIjoxNTg3NjE2MTYwLCJpc3MiOiJxbVBsdXMiLCJuYmYiOjE1ODcwMTAzNjB9.jRHlnfXuJhp4hBE-QqCZ-lodzwK67IBkDI2xteB0OQw');
 INSERT INTO `jwt_blacklists` VALUES (48, '2020-04-22 12:12:17', '2020-04-22 12:12:17', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiY2UwZDY2ODUtYzE1Zi00MTI2LWE1YjQtODkwYmM5ZDIzNTZkIiwiSUQiOjEwLCJOaWNrTmFtZSI6Iui2hee6p-euoeeQhuWRmCIsIkF1dGhvcml0eUlkIjoiODg4IiwiZXhwIjoxNTg4MTMzMjQyLCJpc3MiOiJxbVBsdXMiLCJuYmYiOjE1ODc1Mjc0NDJ9.WJ59uRUxXJ7-rUH07mE6jCfnwgfvQnpPaLU5vJ_VhWM');
+INSERT INTO `jwt_blacklists` VALUES (49, '2020-05-18 11:29:26', '2020-05-18 11:29:26', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiY2UwZDY2ODUtYzE1Zi00MTI2LWE1YjQtODkwYmM5ZDIzNTZkIiwiSUQiOjEwLCJOaWNrTmFtZSI6Iui2hee6p-euoeeQhuWRmCIsIkF1dGhvcml0eUlkIjoiODg4IiwiZXhwIjoxNTkwMTE0MTgwLCJpc3MiOiJxbVBsdXMiLCJuYmYiOjE1ODk1MDgzODB9.Zj18pT9i7wUIWOWBwfH5zVagRsUKbdz6hvDkRbnLtpc');
+INSERT INTO `jwt_blacklists` VALUES (50, '2020-05-18 16:51:03', '2020-05-18 16:51:03', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiY2UwZDY2ODUtYzE1Zi00MTI2LWE1YjQtODkwYmM5ZDIzNTZkIiwiSUQiOjEwLCJOaWNrTmFtZSI6Iui2hee6p-euoeeQhuWRmCIsIkF1dGhvcml0eUlkIjoiODg4IiwiZXhwIjoxNTkwMzc3MzczLCJpc3MiOiJxbVBsdXMiLCJuYmYiOjE1ODk3NzE1NzN9.nSRz4Cz_ZGDZeawrUb-qpkfQYK85E1e9LBJ5heaTUP8');
+INSERT INTO `jwt_blacklists` VALUES (51, '2020-05-18 16:51:55', '2020-05-18 16:51:55', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiY2UwZDY2ODUtYzE1Zi00MTI2LWE1YjQtODkwYmM5ZDIzNTZkIiwiSUQiOjEwLCJOaWNrTmFtZSI6Iui2hee6p-euoeeQhuWRmCIsIkF1dGhvcml0eUlkIjoiODg4IiwiZXhwIjoxNTkwMzk2NjY5LCJpc3MiOiJxbVBsdXMiLCJuYmYiOjE1ODk3OTA4Njl9.xi5KyVQGAQ-u3jYP3oamE1jvW_faUjDF1z-bmoDUFcI');
+INSERT INTO `jwt_blacklists` VALUES (52, '2020-05-18 16:52:46', '2020-05-18 16:52:46', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiY2UwZDY2ODUtYzE1Zi00MTI2LWE1YjQtODkwYmM5ZDIzNTZkIiwiSUQiOjEwLCJOaWNrTmFtZSI6Iui2hee6p-euoeeQhuWRmCIsIkF1dGhvcml0eUlkIjoiODg4IiwiZXhwIjoxNTkwMzk2NzMwLCJpc3MiOiJxbVBsdXMiLCJuYmYiOjE1ODk3OTA5MzB9.GFgizUKOXqVoV63EE36UneJsWGqNP-BaRsQH2-wh4C4');
+INSERT INTO `jwt_blacklists` VALUES (53, '2020-05-18 16:54:28', '2020-05-18 16:54:28', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiMjNmMDZlNzAtYjBiOC00ZDg5LWJiZGQtMTFmZjdjZGNkMWI3IiwiSUQiOjE0LCJOaWNrTmFtZSI6IuS4u-iAg-WumCIsIkF1dGhvcml0eUlkIjoiNjY2IiwiZXhwIjoxNTkwMzk2Nzc4LCJpc3MiOiJxbVBsdXMiLCJuYmYiOjE1ODk3OTA5Nzh9.njSNT8KcT1NnvxZk_QHcSP9eW3oiO9hYJjE_BFmQEuA');
+INSERT INTO `jwt_blacklists` VALUES (54, '2020-05-18 17:20:32', '2020-05-18 17:20:32', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiZTkwOTU3NmYtNjJmNi00YWFmLWI3MWYtZjk5NzNiOGY2YjE1IiwiSUQiOjEyLCJOaWNrTmFtZSI6Imthb3NoZW5nMSIsIkF1dGhvcml0eUlkIjoiNzc3IiwiZXhwIjoxNTkwMzk2ODczLCJpc3MiOiJxbVBsdXMiLCJuYmYiOjE1ODk3OTEwNzN9.XSzF642vXXDrFsYnoTCc0qiukcBmQ2IKSuuNC2FITHk');
+INSERT INTO `jwt_blacklists` VALUES (55, '2020-05-18 17:43:12', '2020-05-18 17:43:12', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiY2UwZDY2ODUtYzE1Zi00MTI2LWE1YjQtODkwYmM5ZDIzNTZkIiwiSUQiOjEwLCJOaWNrTmFtZSI6Iui2hee6p-euoeeQhuWRmCIsIkF1dGhvcml0eUlkIjoiODg4IiwiZXhwIjoxNTkwMzk4NDM5LCJpc3MiOiJxbVBsdXMiLCJuYmYiOjE1ODk3OTI2Mzl9.vEG6a7EMhXIgnDEMqZcitrslBzCKU8tu9fLcMyRqOH8');
 
 -- ----------------------------
 -- Table structure for sys_apis
@@ -365,7 +350,7 @@ CREATE TABLE `sys_apis`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_apis_deleted_at`(`deleted_at`) USING BTREE,
   INDEX `idx_sys_apis_deleted_at`(`deleted_at`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 69 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 71 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_apis
@@ -434,6 +419,8 @@ INSERT INTO `sys_apis` VALUES (65, '2020-05-17 18:40:00', '2020-05-17 20:48:28',
 INSERT INTO `sys_apis` VALUES (66, '2020-05-17 18:40:00', '2020-05-17 20:48:24', NULL, NULL, '/examinationRecord/getExaminationRecordList', '获取ExaminationRecord列表', 'examinationRecord', 'GET');
 INSERT INTO `sys_apis` VALUES (67, '2020-05-17 20:45:47', '2020-05-17 20:45:47', NULL, NULL, '/testPaper/publicTestPaper', '发布考试', 'testPaper', 'PUT');
 INSERT INTO `sys_apis` VALUES (68, '2020-05-17 21:04:58', '2020-05-17 21:04:58', NULL, NULL, '/testPaper/getActiveTestPaper', '获取进行中的考试', 'testPaper', 'GET');
+INSERT INTO `sys_apis` VALUES (69, '2020-05-18 10:42:03', '2020-05-18 10:42:03', NULL, NULL, '/examinationRecord/submitTest', '提交试卷', 'examinationRecord', 'PUT');
+INSERT INTO `sys_apis` VALUES (70, '2020-05-18 16:37:44', '2020-05-18 16:37:44', NULL, NULL, '/examinationRecord/offlineAppraise', '离线阅卷', 'examinationRecord', 'POST');
 
 -- ----------------------------
 -- Table structure for sys_authorities
@@ -454,9 +441,9 @@ CREATE TABLE `sys_authorities`  (
 -- ----------------------------
 -- Records of sys_authorities
 -- ----------------------------
-INSERT INTO `sys_authorities` VALUES ('888', '普通用户', '0', '2020-04-04 11:44:56', '2020-05-09 17:41:29', NULL);
-INSERT INTO `sys_authorities` VALUES ('8881', '普通用户子角色', '888', '2020-04-04 11:44:56', '2020-05-09 17:41:29', NULL);
-INSERT INTO `sys_authorities` VALUES ('9528', '测试角色', '0', '2020-04-04 11:44:56', '2020-05-09 17:41:29', NULL);
+INSERT INTO `sys_authorities` VALUES ('666', '考官', '0', '2020-05-18 10:51:33', '2020-05-18 10:51:33', NULL);
+INSERT INTO `sys_authorities` VALUES ('777', '考生', '0', '2020-05-18 10:51:45', '2020-05-18 10:51:45', NULL);
+INSERT INTO `sys_authorities` VALUES ('888', '超级管理员', '0', '2020-04-04 11:44:56', '2020-05-18 10:51:23', NULL);
 
 -- ----------------------------
 -- Table structure for sys_authority_menus
@@ -472,6 +459,15 @@ CREATE TABLE `sys_authority_menus`  (
 -- ----------------------------
 -- Records of sys_authority_menus
 -- ----------------------------
+INSERT INTO `sys_authority_menus` VALUES ('666', 1);
+INSERT INTO `sys_authority_menus` VALUES ('666', 47);
+INSERT INTO `sys_authority_menus` VALUES ('666', 48);
+INSERT INTO `sys_authority_menus` VALUES ('666', 49);
+INSERT INTO `sys_authority_menus` VALUES ('666', 53);
+INSERT INTO `sys_authority_menus` VALUES ('777', 1);
+INSERT INTO `sys_authority_menus` VALUES ('777', 50);
+INSERT INTO `sys_authority_menus` VALUES ('777', 51);
+INSERT INTO `sys_authority_menus` VALUES ('777', 52);
 INSERT INTO `sys_authority_menus` VALUES ('888', 1);
 INSERT INTO `sys_authority_menus` VALUES ('888', 2);
 INSERT INTO `sys_authority_menus` VALUES ('888', 3);
@@ -491,25 +487,7 @@ INSERT INTO `sys_authority_menus` VALUES ('888', 49);
 INSERT INTO `sys_authority_menus` VALUES ('888', 50);
 INSERT INTO `sys_authority_menus` VALUES ('888', 51);
 INSERT INTO `sys_authority_menus` VALUES ('888', 52);
-INSERT INTO `sys_authority_menus` VALUES ('8881', 1);
-INSERT INTO `sys_authority_menus` VALUES ('8881', 2);
-INSERT INTO `sys_authority_menus` VALUES ('8881', 18);
-INSERT INTO `sys_authority_menus` VALUES ('8881', 38);
-INSERT INTO `sys_authority_menus` VALUES ('8881', 40);
-INSERT INTO `sys_authority_menus` VALUES ('8881', 41);
-INSERT INTO `sys_authority_menus` VALUES ('8881', 42);
-INSERT INTO `sys_authority_menus` VALUES ('9528', 1);
-INSERT INTO `sys_authority_menus` VALUES ('9528', 2);
-INSERT INTO `sys_authority_menus` VALUES ('9528', 3);
-INSERT INTO `sys_authority_menus` VALUES ('9528', 4);
-INSERT INTO `sys_authority_menus` VALUES ('9528', 5);
-INSERT INTO `sys_authority_menus` VALUES ('9528', 6);
-INSERT INTO `sys_authority_menus` VALUES ('9528', 17);
-INSERT INTO `sys_authority_menus` VALUES ('9528', 18);
-INSERT INTO `sys_authority_menus` VALUES ('9528', 38);
-INSERT INTO `sys_authority_menus` VALUES ('9528', 40);
-INSERT INTO `sys_authority_menus` VALUES ('9528', 41);
-INSERT INTO `sys_authority_menus` VALUES ('9528', 42);
+INSERT INTO `sys_authority_menus` VALUES ('888', 53);
 
 -- ----------------------------
 -- Table structure for sys_base_menus
@@ -535,7 +513,7 @@ CREATE TABLE `sys_base_menus`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_base_menus_deleted_at`(`deleted_at`) USING BTREE,
   INDEX `idx_sys_base_menus_deleted_at`(`deleted_at`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 54 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_base_menus
@@ -566,7 +544,8 @@ INSERT INTO `sys_base_menus` VALUES (48, '2020-05-16 22:01:23', '2020-05-16 23:0
 INSERT INTO `sys_base_menus` VALUES (49, '2020-05-16 23:07:01', '2020-05-16 23:07:13', NULL, 0, 47, 'testPaperInfo', 'testPaperInfo', 1, 'view/examiner/testPaper/testPaperInfo.vue', '考题录入', 'info', NULL, 2, 0, 0);
 INSERT INTO `sys_base_menus` VALUES (50, '2020-05-17 18:20:04', '2020-05-17 18:20:04', NULL, 0, 0, 'examinee', 'examinee', 0, 'view/examinee/index.vue', '考生', 'user-solid', NULL, 5, 0, 0);
 INSERT INTO `sys_base_menus` VALUES (51, '2020-05-17 18:21:55', '2020-05-17 18:21:55', NULL, 0, 50, 'startTestPaperInfo', 'startTestPaperInfo', 0, 'view/examinee/testPaper/testPaperInfo.vue', '开始考试', 's-order', NULL, 0, 0, 0);
-INSERT INTO `sys_base_menus` VALUES (52, '2020-05-17 18:44:58', '2020-05-17 18:44:58', NULL, 0, 50, 'examinationRecord', 'examinationRecord', 0, 'view/examinee/testPaper/examinationRecord.vue', '成绩列表', 'tickets', NULL, 0, 0, 0);
+INSERT INTO `sys_base_menus` VALUES (52, '2020-05-17 18:44:58', '2020-05-18 17:21:06', NULL, 0, 50, 'examinationRecord', 'examinationRecord', 0, 'view/examinee/testPaper/examinationRecord.vue', '考试列表', 'tickets', NULL, 0, 0, 0);
+INSERT INTO `sys_base_menus` VALUES (53, '2020-05-18 11:46:19', '2020-05-18 11:48:56', NULL, 0, 47, 'examinerRecord', 'examinerRecord', 0, 'view/examiner/testPaper/examinerRecord.vue', '评阅', 'check', NULL, 3, 0, 0);
 
 -- ----------------------------
 -- Table structure for sys_data_authority_id
@@ -621,13 +600,17 @@ CREATE TABLE `sys_users`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_users_deleted_at`(`deleted_at`) USING BTREE,
   INDEX `idx_sys_users_deleted_at`(`deleted_at`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_users
 -- ----------------------------
 INSERT INTO `sys_users` VALUES (10, '2019-09-13 17:23:46', '2020-05-06 16:09:15', NULL, 0x63653064363638352D633135662D343132362D613562342D383930626339643233353664, NULL, NULL, '超级管理员', 'http://qmplusimg.henrongyi.top/15887525450B978439-F04A-4a09-A8D3-DE7DE2677142.png', '888', NULL, 'admin', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL);
-INSERT INTO `sys_users` VALUES (11, '2019-09-13 17:27:29', '2020-05-09 17:43:44', NULL, 0x66643665663739622D393434632D343838382D383337372D616265326432363038383538, NULL, NULL, 'QMPlusUser', 'http://qmplusimg.henrongyi.top/1572075907logo.png', '9528', NULL, 'a303176530', '3ec063004a6f31642261936a379fde3d', NULL, NULL);
+INSERT INTO `sys_users` VALUES (11, '2019-09-13 17:27:29', '2020-05-09 17:43:44', '2020-05-18 10:51:05', 0x66643665663739622D393434632D343838382D383337372D616265326432363038383538, NULL, NULL, 'QMPlusUser', 'http://qmplusimg.henrongyi.top/1572075907logo.png', '9528', NULL, 'a303176530', '3ec063004a6f31642261936a379fde3d', NULL, NULL);
+INSERT INTO `sys_users` VALUES (12, '2020-05-18 11:11:26', '2020-05-18 11:11:26', NULL, 0x65393039353736662D363266362D346161662D623731662D663939373362386636623135, NULL, NULL, 'kaosheng1', 'http://www.henrongyi.top/avatar/lufu.jpg', '777', NULL, 'kaosheng1', 'f7d74423f29cb93ed7db06802ee229a0', NULL, NULL);
+INSERT INTO `sys_users` VALUES (13, '2020-05-18 11:11:36', '2020-05-18 11:11:36', NULL, 0x62306263316538382D376630312D343765332D623664312D313566363530353466393434, NULL, NULL, 'kaosheng2', 'http://www.henrongyi.top/avatar/lufu.jpg', '777', NULL, 'kaosheng2', 'cb1186c453021d61acbeeea7e8a8a3fe', NULL, NULL);
+INSERT INTO `sys_users` VALUES (14, '2020-05-18 16:51:45', '2020-05-18 16:51:45', NULL, 0x32336630366537302D623062382D346438392D626264642D313166663763646364316237, NULL, NULL, '主考官', 'http://qmplusimg.henrongyi.top/1589791896gvanotitle.jpg', '666', NULL, 'kaoguan1', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL);
+INSERT INTO `sys_users` VALUES (15, '2020-05-18 17:47:39', '2020-05-18 17:47:39', NULL, 0x64373531323430642D363966642D346637612D623936622D663036643933383039363434, NULL, NULL, '蒋吉兆', 'http://www.henrongyi.top/avatar/lufu.jpg', '777', NULL, 'jiangjizhao', '3ec063004a6f31642261936a379fde3d', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_workflow_step_infos
@@ -689,18 +672,16 @@ CREATE TABLE `test_paper_svg_nodes`  (
   `source_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_test_paper_svg_nodes_deleted_at`(`deleted_at`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 42 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of test_paper_svg_nodes
 -- ----------------------------
-INSERT INTO `test_paper_svg_nodes` VALUES (1, '2020-05-17 21:14:06', '2020-05-17 22:04:24', NULL, 'SvgjsTspan1015', 1, './test-resource/node/flow/20200517220423-49e0aad64c5cadb27f354f5fe87fcb4.jpg', '', '', '');
-INSERT INTO `test_paper_svg_nodes` VALUES (2, '2020-05-17 21:14:43', '2020-05-17 21:14:51', NULL, 'SvgjsTspan1211', 1, '', '', '', '');
-INSERT INTO `test_paper_svg_nodes` VALUES (3, '2020-05-17 22:04:00', '2020-05-17 22:04:00', NULL, 'SvgjsTspan1211', 0, '', '', '', '');
-INSERT INTO `test_paper_svg_nodes` VALUES (4, '2020-05-17 22:04:02', '2020-05-17 22:04:02', NULL, 'SvgjsTspan1235', 0, '', '', '', '');
-INSERT INTO `test_paper_svg_nodes` VALUES (5, '2020-05-17 22:04:03', '2020-05-17 22:04:03', NULL, 'SvgjsTspan1393', 0, '', '', '', '');
-INSERT INTO `test_paper_svg_nodes` VALUES (6, '2020-05-17 22:04:04', '2020-05-17 22:04:04', NULL, 'SvgjsTspan1133', 0, '', '', '', '');
-INSERT INTO `test_paper_svg_nodes` VALUES (7, '2020-05-17 22:04:05', '2020-05-17 22:04:05', NULL, 'SvgjsTspan1015', 0, '', '', '', '');
+INSERT INTO `test_paper_svg_nodes` VALUES (37, '2020-05-18 16:53:51', '2020-05-18 16:53:55', NULL, 'SvgjsTspan1015', 3, './test-resource/node/flow/20200518165354-gin-vue-admin.png', '', '', '');
+INSERT INTO `test_paper_svg_nodes` VALUES (38, '2020-05-18 16:53:56', '2020-05-18 16:54:00', NULL, 'SvgjsTspan1023', 3, '', '', './test-resource/node/configuration/20200518165359-222.code-workspace', '');
+INSERT INTO `test_paper_svg_nodes` VALUES (39, '2020-05-18 16:54:05', '2020-05-18 16:54:05', NULL, 'SvgjsTspan1341', 3, '', '', '', '');
+INSERT INTO `test_paper_svg_nodes` VALUES (40, '2020-05-18 17:29:39', '2020-05-18 17:29:39', NULL, 'SvgjsTspan1211', 3, '', '', '', '');
+INSERT INTO `test_paper_svg_nodes` VALUES (41, '2020-05-18 17:29:44', '2020-05-18 17:29:44', NULL, 'SvgjsTspan1031', 3, '', '', '', '');
 
 -- ----------------------------
 -- Table structure for test_papers
@@ -721,18 +702,17 @@ CREATE TABLE `test_papers`  (
   `test_paper_mould` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_test_papers_deleted_at`(`deleted_at`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of test_papers
 -- ----------------------------
-INSERT INTO `test_papers` VALUES (1, '2020-05-17 21:13:41', '2020-05-17 21:15:09', NULL, 1, '2020-05-07 00:00:00', '2020-06-17 00:00:00', '水水水水水水水水水水水水水水水水水水水水', '水水水水水水水水水水', '超级管理员', './test-resource/svg/20200517211339-电子政务外网.svg', './test-resource/mould/20200517211336-翻转极光20200417会议总结.docx');
-INSERT INTO `test_papers` VALUES (2, '2020-05-17 21:13:58', '2020-05-17 21:15:09', NULL, 0, '2020-05-06 00:00:00', '2020-06-26 00:00:00', '水水水水水水水水水水水水水水水水水水水水', '水水水水水水水水水水', '超级管理员', './test-resource/svg/20200517211356-电子政务外网.svg', './test-resource/mould/20200517211353-翻转极光20200417会议总结.docx');
+INSERT INTO `test_papers` VALUES (3, '2020-05-18 16:53:41', '2020-05-18 17:29:32', NULL, 1, '2020-05-18 00:00:00', '2020-05-20 00:00:00', '要好好考试不能够作弊作弊会被开除的', '考题1号', '超级管理员', './test-resource/svg/20200518165339-电子政务外网.svg', './test-resource/mould/20200518165329-蒋吉兆（5年）高级前端工程师.doc');
 
 -- ----------------------------
 -- View structure for authority_menu
 -- ----------------------------
 DROP VIEW IF EXISTS `authority_menu`;
-CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `authority_menu` AS select `sys_base_menus`.`id` AS `id`,`sys_base_menus`.`created_at` AS `created_at`,`sys_base_menus`.`updated_at` AS `updated_at`,`sys_base_menus`.`deleted_at` AS `deleted_at`,`sys_base_menus`.`menu_level` AS `menu_level`,`sys_base_menus`.`parent_id` AS `parent_id`,`sys_base_menus`.`path` AS `path`,`sys_base_menus`.`name` AS `name`,`sys_base_menus`.`hidden` AS `hidden`,`sys_base_menus`.`component` AS `component`,`sys_base_menus`.`title` AS `title`,`sys_base_menus`.`icon` AS `icon`,`sys_base_menus`.`nick_name` AS `nick_name`,`sys_base_menus`.`sort` AS `sort`,`sys_authority_menus`.`sys_authority_authority_id` AS `authority_id`,`sys_authority_menus`.`sys_base_menu_id` AS `menu_id`,`sys_base_menus`.`keep_alive` AS `keep_alive`,`sys_base_menus`.`default_menu` AS `default_menu` from (`sys_authority_menus` join `sys_base_menus` on((`sys_authority_menus`.`sys_base_menu_id` = `sys_base_menus`.`id`)));
+CREATE ALGORITHM = UNDEFINED DEFINER = `root`@`localhost` SQL SECURITY DEFINER VIEW `authority_menu` AS select `sys_base_menus`.`id` AS `id`,`sys_base_menus`.`created_at` AS `created_at`,`sys_base_menus`.`updated_at` AS `updated_at`,`sys_base_menus`.`deleted_at` AS `deleted_at`,`sys_base_menus`.`menu_level` AS `menu_level`,`sys_base_menus`.`parent_id` AS `parent_id`,`sys_base_menus`.`path` AS `path`,`sys_base_menus`.`name` AS `name`,`sys_base_menus`.`hidden` AS `hidden`,`sys_base_menus`.`component` AS `component`,`sys_base_menus`.`title` AS `title`,`sys_base_menus`.`icon` AS `icon`,`sys_base_menus`.`nick_name` AS `nick_name`,`sys_base_menus`.`sort` AS `sort`,`sys_authority_menus`.`sys_authority_authority_id` AS `authority_id`,`sys_authority_menus`.`sys_base_menu_id` AS `menu_id`,`sys_base_menus`.`keep_alive` AS `keep_alive`,`sys_base_menus`.`default_menu` AS `default_menu` from (`sys_authority_menus` join `sys_base_menus` on((`sys_authority_menus`.`sys_base_menu_id` = `sys_base_menus`.`id`)));
 
 SET FOREIGN_KEY_CHECKS = 1;
