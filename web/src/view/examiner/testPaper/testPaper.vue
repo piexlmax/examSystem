@@ -24,6 +24,14 @@
 
       <el-table-column label="出题人" prop="testPaperAuthor" width="120"></el-table-column>
       <el-table-column label="考生须知" prop="testPaperNote" width="120"></el-table-column>
+      <el-table-column label="允许多次提交" prop="testPaperNote" width="120">
+        <template slot-scope="scope">
+          <div>
+            {{scope.row.testPaperSubmitTimes?"是":"否"}}
+          </div>
+        </template>
+      </el-table-column>
+
       <el-table-column label="考试起止时间" width="300">
         <template slot-scope="scope">
           <div>{{scope.row.testPaperStartTime|formatDate}} 至 {{scope.row.testPaperEndTime|formatDate}}</div>
@@ -32,16 +40,31 @@
       <el-table-column label="答题模板" prop="testPaperMould" width="120">
         <template slot-scope="scope">
           <div>
-            <el-button v-if="scope.row.testPaperMould" type="text" size="mini" @click="getTestPaperMould(scope.row)">下载</el-button>
+            <el-button
+              v-if="scope.row.testPaperMould"
+              type="text"
+              size="mini"
+              @click="getTestPaperMould(scope.row)"
+            >下载</el-button>
             <span v-else>暂未上传模板</span>
           </div>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="460">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.testPaperSvg" @click="viewTestPaper(scope.row)" size="small" type="text">查看SVG</el-button>
+          <el-button
+            v-if="scope.row.testPaperSvg"
+            @click="viewTestPaper(scope.row)"
+            size="small"
+            type="text"
+          >查看SVG</el-button>
           <el-button @click="updateTestPaper(scope.row)" size="small" type="text">变更</el-button>
-          <el-button @click="publicTestPaper(scope.row,true)" v-if="!scope.row.testPaperStatus" size="small" type="text">发布考题</el-button>
+          <el-button
+            @click="publicTestPaper(scope.row,true)"
+            v-if="!scope.row.testPaperStatus"
+            size="small"
+            type="text"
+          >发布考题</el-button>
           <el-button @click="publicTestPaper(scope.row,false)" v-else size="small" type="text">撤销发布</el-button>
           <el-popover placement="top" width="160" v-model="scope.row.visible">
             <p>确定要删除吗？</p>
@@ -86,7 +109,11 @@
             :style="{width: '100%'}"
           ></el-input>
         </el-form-item>
-
+        <el-form-item label="是否允许多次提交" prop="testPaperSubmitTimes">
+          <el-checkbox
+            v-model="formData.testPaperSubmitTimes"
+          ></el-checkbox>
+        </el-form-item>
         <el-form-item label="开考时间">
           <el-date-picker
             @change="timeChange"
@@ -191,7 +218,8 @@ export default {
         testPaperAuthor: "",
         testPaperMould: "",
         testPaperSvg: "",
-        testPaperStatus: false
+        testPaperStatus: false,
+        testPaperSubmitTimes:false,
       },
       rules: {
         testPaperName: [
@@ -218,15 +246,15 @@ export default {
     }
   },
   methods: {
-    async publicTestPaper(row,flag){
-      row.testPaperStatus = flag
-      const res = await publicTestPaper(row)
-      if(res.code==0){
+    async publicTestPaper(row, flag) {
+      row.testPaperStatus = flag;
+      const res = await publicTestPaper(row);
+      if (res.code == 0) {
         this.$message({
-          type:"success",
-          message:flag?"发布成功":"取消成功"
-        })
-        this.getTableData()
+          type: "success",
+          message: flag ? "发布成功" : "取消成功"
+        });
+        this.getTableData();
       }
     },
     async beforeRemoveSvg(file) {
@@ -369,7 +397,10 @@ export default {
             }
           ];
         }
-        this.timeArea = [new Date(res.data.retestPaper.testPaperStartTime),new Date(res.data.retestPaper.testPaperEndTime)]
+        this.timeArea = [
+          new Date(res.data.retestPaper.testPaperStartTime),
+          new Date(res.data.retestPaper.testPaperEndTime)
+        ];
         this.formData = res.data.retestPaper;
         this.dialogFormVisible = true;
       }
@@ -385,6 +416,7 @@ export default {
         testPaperAuthor: "",
         testPaperMould: "",
         testPaperSvg: "",
+        testPaperSubmitTimes:false,
         testPaperStatus: false
       };
       this.mouldFileList = [];

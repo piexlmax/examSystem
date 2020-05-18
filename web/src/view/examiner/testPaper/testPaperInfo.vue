@@ -63,7 +63,7 @@ export default {
         }else{
           this.$message({
             type:"error",
-            message:res.data.message
+            message:res.data.msg
           })
           window.location.reload()
         }

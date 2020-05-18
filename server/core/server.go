@@ -15,6 +15,8 @@ func RunWindowsServer() {
 	}
 	Router := initialize.Routers()
 	Router.Static("/form-generator", "./resource/page")
+	Router.Static("/record", "./test-resource/record")
+
 	address := fmt.Sprintf(":%d", global.GVA_CONFIG.System.Addr)
 	s := &http.Server{
 		Addr:           address,
