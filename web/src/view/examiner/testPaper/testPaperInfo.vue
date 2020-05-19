@@ -1,6 +1,6 @@
 <template>
-  <div class="svgInfo">
-    <input type="file" v-show="false" ref="fileupload" @change="handlerUpload($event)">
+  <div class="svgInfo" v-loading.fullscreen.lock="loading">
+    <input type="file" v-if="!loading" v-show="false" ref="fileupload" @change="handlerUpload($event)">
     <div v-html="svg"></div>
     <!--自定义右键菜单html代码-->
     <ul :style="{left:left+'px',top:top+'px'}" class="contextmenu" v-show="contextMenuVisible">
@@ -34,6 +34,7 @@ export default {
       contextMenuVisible: false,
       left: 0,
       top: 0,
+      loading:false,
       active:{},
       activeNode:{},
       formData:null,
@@ -48,6 +49,7 @@ export default {
         this.$refs.fileupload.click()
       },
       async handlerUpload(e){
+        this.loading = true
         this.param.append("file", e.target.files[0]);
         this.param.append("nodeId",this.active.target.id)
         this.param.append("testPaperID",Number(this.$route.query.id))
@@ -55,6 +57,7 @@ export default {
         const res =  await service.post("/testPaper/uploadTestPaperSvgNode",this.param,{headers:{
             'x-token': token
         }})
+        this.loading = false
         if(res.data.code==0){
           this.$message({
             type:"success",
@@ -65,7 +68,6 @@ export default {
             type:"error",
             message:res.data.msg
           })
-          window.location.reload()
         }
       },
       async download(type){
