@@ -57,7 +57,7 @@
             @click="viewTestPaper(scope.row)"
             size="small"
             type="text"
-          >查看SVG</el-button>
+          >配置SVG</el-button>
           <el-button @click="updateTestPaper(scope.row)" size="small" type="text">变更</el-button>
           <el-button
             @click="publicTestPaper(scope.row,true)"

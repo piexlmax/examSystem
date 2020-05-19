@@ -28,10 +28,10 @@
 
     <!--自定义右键菜单html代码-->
     <ul :style="{left:left+'px',top:top+'px'}" class="contextmenu" v-show="contextMenuVisible">
-      <li @click="download('flow')" v-if="activeNode.flow">下载流量文件</li>
-      <li @click="download('configuration')" v-if="activeNode.configuration">下载配置文件</li>
-      <li @click="download('log')" v-if="activeNode.log">下载日志文件</li>
-      <li @click="download('sourceCode')" v-if="activeNode.sourceCode">下载源码文件</li>
+      <li @click="download('flow')">流量文件:{{activeNode.flow?"下载":"(无)"}}</li>
+      <li @click="download('configuration')">配置文件:{{activeNode.configuration?"下载":"(无)"}}</li>
+      <li @click="download('log')">日志文件:{{activeNode.log?"下载":"(无)"}}</li>
+      <li @click="download('sourceCode')">源码文件:{{activeNode.sourceCode?"下载":"(无)"}}</li>
     </ul>
   </div>
 </template>
@@ -209,12 +209,12 @@ export default {
         window.navigator.msSaveBlob(blob, fileName);
       }
     },
-    async openContextMenu(e) {
+    async openContextMenu(dom) {
       window.event.returnValue = false;
-      var oEvent = e || event;
-      this.active = e;
+      var oEvent = window.event;
+      this.active = dom;
       const res = await findAndCreateTestPaperSvgNode({
-        nodeId: this.active.target.id,
+        nodeId: this.active.id,
         testPaperID: Number(this.testPaper.ID)
       });
       if (res.code == 0) {
@@ -238,11 +238,14 @@ export default {
       if (res.code == 0) {
         this.svg = res.data.retestPaper;
         setTimeout(() => {
-          const tspans = document.getElementsByTagName("tspan");
-          for (let k = 0; k < tspans.length; k++) {
-            const tspan = tspans[k].getElementsByTagName("tspan");
-            if (tspan[0]) {
-              tspan[0].oncontextmenu = this.openContextMenu;
+          const g = document.getElementsByTagName("g");
+          for (let key = 0; key < g.length; key++) {
+            const paths = g[key].getElementsByTagName("path");
+            const gs = g[key].getElementsByTagName("g");
+            if (paths.length > 0 && gs.length > 0) {
+              g[key].oncontextmenu = () => {
+                this.openContextMenu(g[key]);
+              };
             }
           }
         }, 0);
@@ -320,9 +323,7 @@ export default {
   cursor: pointer;
 }
 
-tspan {
-  tspan {
-    cursor: pointer;
-  }
+g {
+  cursor: pointer;
 }
 </style>
