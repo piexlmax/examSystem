@@ -11,7 +11,7 @@
  Target Server Version : 50644
  File Encoding         : 65001
 
- Date: 18/05/2020 17:57:21
+ Date: 19/05/2020 09:51:47
 */
 
 SET NAMES utf8mb4;
@@ -255,14 +255,6 @@ CREATE TABLE `examination_records`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of examination_records
--- ----------------------------
-INSERT INTO `examination_records` VALUES (0000000014, '2020-05-18 16:54:17', '2020-05-18 16:54:17', NULL, 12, 3, 0, '', 0.0, '');
-INSERT INTO `examination_records` VALUES (0000000015, '2020-05-18 16:54:17', '2020-05-18 16:54:17', NULL, 13, 3, 0, '', 0.0, '');
-INSERT INTO `examination_records` VALUES (0000000016, '2020-05-18 17:29:36', '2020-05-18 17:42:15', NULL, 10, 3, 1, './test-resource/record/3/20200518172953-蒋吉兆（5年）高级前端工程师.doc', 99.0, '做的不错');
-INSERT INTO `examination_records` VALUES (0000000017, '2020-05-18 17:48:05', '2020-05-18 17:48:14', NULL, 15, 3, 1, './test-resource/record/3/20200518174814-10.png', 0.0, '');
-
--- ----------------------------
 -- Table structure for jwt_blacklists
 -- ----------------------------
 DROP TABLE IF EXISTS `jwt_blacklists`;
@@ -274,7 +266,7 @@ CREATE TABLE `jwt_blacklists`  (
   `jwt` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_jwt_blacklists_deleted_at`(`deleted_at`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 57 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of jwt_blacklists
@@ -332,6 +324,7 @@ INSERT INTO `jwt_blacklists` VALUES (52, '2020-05-18 16:52:46', '2020-05-18 16:5
 INSERT INTO `jwt_blacklists` VALUES (53, '2020-05-18 16:54:28', '2020-05-18 16:54:28', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiMjNmMDZlNzAtYjBiOC00ZDg5LWJiZGQtMTFmZjdjZGNkMWI3IiwiSUQiOjE0LCJOaWNrTmFtZSI6IuS4u-iAg-WumCIsIkF1dGhvcml0eUlkIjoiNjY2IiwiZXhwIjoxNTkwMzk2Nzc4LCJpc3MiOiJxbVBsdXMiLCJuYmYiOjE1ODk3OTA5Nzh9.njSNT8KcT1NnvxZk_QHcSP9eW3oiO9hYJjE_BFmQEuA');
 INSERT INTO `jwt_blacklists` VALUES (54, '2020-05-18 17:20:32', '2020-05-18 17:20:32', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiZTkwOTU3NmYtNjJmNi00YWFmLWI3MWYtZjk5NzNiOGY2YjE1IiwiSUQiOjEyLCJOaWNrTmFtZSI6Imthb3NoZW5nMSIsIkF1dGhvcml0eUlkIjoiNzc3IiwiZXhwIjoxNTkwMzk2ODczLCJpc3MiOiJxbVBsdXMiLCJuYmYiOjE1ODk3OTEwNzN9.XSzF642vXXDrFsYnoTCc0qiukcBmQ2IKSuuNC2FITHk');
 INSERT INTO `jwt_blacklists` VALUES (55, '2020-05-18 17:43:12', '2020-05-18 17:43:12', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiY2UwZDY2ODUtYzE1Zi00MTI2LWE1YjQtODkwYmM5ZDIzNTZkIiwiSUQiOjEwLCJOaWNrTmFtZSI6Iui2hee6p-euoeeQhuWRmCIsIkF1dGhvcml0eUlkIjoiODg4IiwiZXhwIjoxNTkwMzk4NDM5LCJpc3MiOiJxbVBsdXMiLCJuYmYiOjE1ODk3OTI2Mzl9.vEG6a7EMhXIgnDEMqZcitrslBzCKU8tu9fLcMyRqOH8');
+INSERT INTO `jwt_blacklists` VALUES (56, '2020-05-18 18:09:44', '2020-05-18 18:09:44', NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiZDc1MTI0MGQtNjlmZC00ZjdhLWI5NmItZjA2ZDkzODA5NjQ0IiwiSUQiOjE1LCJOaWNrTmFtZSI6IuiSi-WQieWFhiIsIkF1dGhvcml0eUlkIjoiNzc3IiwiZXhwIjoxNTkwNDAwMDY2LCJpc3MiOiJxbVBsdXMiLCJuYmYiOjE1ODk3OTQyNjZ9.zerJK8ZUO5-dT5LYWOlEEJSi8BfeI1lYrkIfLV1iTKc');
 
 -- ----------------------------
 -- Table structure for sys_apis
@@ -675,15 +668,6 @@ CREATE TABLE `test_paper_svg_nodes`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 42 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of test_paper_svg_nodes
--- ----------------------------
-INSERT INTO `test_paper_svg_nodes` VALUES (37, '2020-05-18 16:53:51', '2020-05-18 16:53:55', NULL, 'SvgjsTspan1015', 3, './test-resource/node/flow/20200518165354-gin-vue-admin.png', '', '', '');
-INSERT INTO `test_paper_svg_nodes` VALUES (38, '2020-05-18 16:53:56', '2020-05-18 16:54:00', NULL, 'SvgjsTspan1023', 3, '', '', './test-resource/node/configuration/20200518165359-222.code-workspace', '');
-INSERT INTO `test_paper_svg_nodes` VALUES (39, '2020-05-18 16:54:05', '2020-05-18 16:54:05', NULL, 'SvgjsTspan1341', 3, '', '', '', '');
-INSERT INTO `test_paper_svg_nodes` VALUES (40, '2020-05-18 17:29:39', '2020-05-18 17:29:39', NULL, 'SvgjsTspan1211', 3, '', '', '', '');
-INSERT INTO `test_paper_svg_nodes` VALUES (41, '2020-05-18 17:29:44', '2020-05-18 17:29:44', NULL, 'SvgjsTspan1031', 3, '', '', '', '');
-
--- ----------------------------
 -- Table structure for test_papers
 -- ----------------------------
 DROP TABLE IF EXISTS `test_papers`;
@@ -700,14 +684,10 @@ CREATE TABLE `test_papers`  (
   `test_paper_author` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `test_paper_svg` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `test_paper_mould` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `test_paper_submit_times` tinyint(1) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_test_papers_deleted_at`(`deleted_at`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of test_papers
--- ----------------------------
-INSERT INTO `test_papers` VALUES (3, '2020-05-18 16:53:41', '2020-05-18 17:29:32', NULL, 1, '2020-05-18 00:00:00', '2020-05-20 00:00:00', '要好好考试不能够作弊作弊会被开除的', '考题1号', '超级管理员', './test-resource/svg/20200518165339-电子政务外网.svg', './test-resource/mould/20200518165329-蒋吉兆（5年）高级前端工程师.doc');
 
 -- ----------------------------
 -- View structure for authority_menu
