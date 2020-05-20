@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"bufio"
 	"fmt"
 	"gin-vue-admin/global/response"
 	"gin-vue-admin/model"
@@ -8,6 +9,9 @@ import (
 	resp "gin-vue-admin/model/response"
 	"gin-vue-admin/service"
 	"github.com/gin-gonic/gin"
+	"io"
+	"os"
+	"strings"
 	"time"
 )
 
@@ -119,15 +123,34 @@ func GetTestPaperList(c *gin.Context) {
 
 // 上传svg
 func UploadSVG(c *gin.Context) {
-	file,err := c.FormFile("svg")
 	timeString := time.Now().Format("20060102150405")
-	if err!=nil {
-		response.FailWithMessage(fmt.Sprintf("上传文件失败，%v", err), c)
-		return
+	file,err := c.FormFile("svg")
+	in,err := file.Open()
+	defer in.Close()
+	out, err := os.OpenFile("./test-resource/svg/"+timeString+"-"+file.Filename, os.O_RDWR|os.O_CREATE, 0766)
+	defer out.Close()
+	br := bufio.NewReader(in)
+	index := 1
+	for {
+		line , _, err := br.ReadLine()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			fmt.Println("read err:", err)
+			os.Exit(-1)
+		}
+		newLine := strings.Replace(string(line), "https://www.processon.com", "/svg-proxy", -1)
+		_, err = out.WriteString(newLine)
+		if err != nil {
+			fmt.Println("write to file fail:", err)
+			os.Exit(-1)
+		}
+		index++
 	}
-	fileErr := c.SaveUploadedFile(file,"./test-resource/svg/"+timeString+"-"+file.Filename);
-	if fileErr!=nil{
-		response.FailWithMessage(fmt.Sprintf("保存文件失败，%v", fileErr), c)
+
+	if err != nil {
+		response.FailWithMessage(fmt.Sprintf("上传文件读取失败，%v", err), c)
 		return
 	}
 	response.OkWithData(gin.H{

@@ -28,6 +28,13 @@ module.exports = {
                 pathRewrite: { // 修改路径数据
                     ['^' + process.env.VUE_APP_BASE_API]: '' // 举例 '^/api:""' 把路径中的/api字符串删除
                 }
+            },
+            "/svg-proxy": {
+                target: `https://www.processon.com`,
+                changeOrigin: true,
+                pathRewrite: { // 修改路径数据
+                    "^/svg-proxy": '' // 举例 '^/api:""' 把路径中的/api字符串删除
+                }
             }
         },
     },
