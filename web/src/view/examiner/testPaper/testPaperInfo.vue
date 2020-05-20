@@ -161,10 +161,9 @@ export default {
         const g = document.getElementsByTagName("g");
         for (let key = 0; key < g.length; key++) {
           const paths = g[key].getElementsByTagName("path");
-          const gs = g[key].getElementsByTagName("g");
-          if (paths.length > 0 && gs.length > 0) {
-            g[key].oncontextmenu = () => {
-              this.openContextMenu(g[key]);
+          if (paths.length > 0) {
+            paths[0].oncontextmenu = () => {
+              this.openContextMenu(paths[0]);
             };
           }
         }
