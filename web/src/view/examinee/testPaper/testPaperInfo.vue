@@ -14,12 +14,24 @@
     <!-- 考试开始并且已同意考试须知 -->
 
     <div v-if="status==1&&examinationRecord.agreement">
+      <div style="text-align:right;padding:20px 0">距离考试结束还有：{{countDownList}}</div>
       <el-button
         @click="getTestPaperMould(testPaper)"
         style="float:right;margin-right:20px;"
         type="primary"
       >下载答题模板</el-button>
-      <el-button @click="submitTest" style="float:right;margin-right:20px;" type="primary">提交答卷</el-button>
+      <el-popover
+  placement="top"
+  width="160"
+  v-model="visible">
+  <p>确认答题无误后，点击“确定”提交试卷</p>
+  <div style="text-align: right; margin: 0">
+    <el-button size="mini" type="text" @click="visible = false">取消</el-button>
+    <el-button  @click="submitTest" type="primary" size="mini">确定</el-button>
+  </div>
+  <el-button slot="reference" style="float:right;margin-right:20px;" type="primary">提交答卷</el-button>
+</el-popover>
+      
       <div v-html="svg"></div>
     </div>
 
@@ -28,10 +40,10 @@
 
     <!--自定义右键菜单html代码-->
     <ul :style="{left:left+'px',top:top+'px'}" class="contextmenu" v-show="contextMenuVisible">
-      <li @click="download('flow')">流量文件:{{activeNode.flow?"下载":"(无)"}}</li>
-      <li @click="download('configuration')">配置文件:{{activeNode.configuration?"下载":"(无)"}}</li>
-      <li @click="download('log')">日志文件:{{activeNode.log?"下载":"(无)"}}</li>
-      <li @click="download('sourceCode')">源码文件:{{activeNode.sourceCode?"下载":"(无)"}}</li>
+      <li @click="download('flow')">流量文件:{{activeNode.flow?"下载":"？？"}}</li>
+      <li @click="download('configuration')">配置文件:{{activeNode.configuration?"下载":"？？"}}</li>
+      <li @click="download('log')">日志文件:{{activeNode.log?"下载":"？？"}}</li>
+      <li @click="download('sourceCode')">源码文件:{{activeNode.sourceCode?"下载":"？？"}}</li>
     </ul>
   </div>
 </template>
@@ -61,6 +73,7 @@ export default {
   name: "TestPaperInfo",
   data() {
     return {
+      visible:false,
       examinationRecord: {},
       testPaper: {},
       svg: "",
@@ -85,10 +98,11 @@ export default {
     timeFormat(param) {
       return param < 10 ? "0" + param : param;
     },
-    countDown() {
+    
+    countDown(time) {
       const timefunc = async () => {
         let newTime = new Date().getTime(); // 对结束时间进行处理渲染到页面
-        let endTime = new Date(this.testPaper.testPaperStartTime).getTime();
+        let endTime = new Date(time).getTime();
         let obj = null; // 如果活动未结束，对时间进行处理
         if (endTime - newTime > 0) {
           let time = (endTime - newTime) / 1000; // 获取天、时、分、秒
@@ -127,6 +141,7 @@ export default {
       var interval = setInterval(timefunc, 1000);
     },
     submitTest() {
+      this.visible = false
       this.param = new FormData();
       this.$refs.fileupload.click();
     },
@@ -147,7 +162,7 @@ export default {
       if (res.data.code == 0) {
         this.$message({
           type: "success",
-          message: "上传成功"
+          message: "交卷成功"
         });
       } else {
         this.$message({
@@ -184,6 +199,7 @@ export default {
       });
       if (res.code == 0) {
         await this.getExamination();
+        this.countDown(this.testPaper.testPaperEndTime);
         this.getTest(this.testPaper.ID);
       }
     },
@@ -259,7 +275,6 @@ export default {
     }
   },
   async created() {
-    this.countDown();
     this.$bus.on("mobile", isMobile => {
       this.isMobile = isMobile;
     });
@@ -269,10 +284,14 @@ export default {
     const res = await getActiveTestPaper();
     this.status = res.data.status;
     this.testPaper = res.data.testPaper;
+    if(this.status == 2){
+      this.countDown(this.testPaper.testPaperStartTime);
+    }
     if (this.status == 1) {
       await this.getExamination();
       if (this.examinationRecord.agreement) {
         this.getTest(res.data.testPaper.ID);
+        this.countDown(this.testPaper.testPaperEndTime)
       }
     }
   },
