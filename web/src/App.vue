@@ -5,9 +5,21 @@
 </template>
 
 <script>
+import { keepOnline } from '@/api/user'
 export default {
   name: 'app',
-  components: {}
+  components: {},
+  created() {
+    const token = this.$store.getters['user/token']
+    if (token) {
+      keepOnline()
+    }
+    setInterval(() => {
+      if (token) {
+        keepOnline()
+      }
+    }, 1000 * 60 * 10)
+  }
 }
 </script>
 

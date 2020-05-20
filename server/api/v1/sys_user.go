@@ -69,7 +69,7 @@ func Login(c *gin.Context) {
 	}
 	if captcha.VerifyString(L.CaptchaId, L.Captcha) {
 		U := &model.SysUser{Username: L.Username, Password: L.Password}
-		if err, user := service.Login(U); err != nil {
+		if err, user := service.Login(U,c.ClientIP()); err != nil {
 			response.FailWithMessage(fmt.Sprintf("用户名密码错误或%v", err), c)
 		} else {
 			tokenNext(c, *user)
@@ -223,14 +223,14 @@ func UploadHeaderImg(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /user/getUserList [post]
 func GetUserList(c *gin.Context) {
-	var pageInfo request.PageInfo
+	var pageInfo request.QueryUserList
 	_ = c.ShouldBindJSON(&pageInfo)
-	PageVerifyErr := utils.Verify(pageInfo, utils.CustomizeMap["PageVerify"])
+	PageVerifyErr := utils.Verify(pageInfo.PageInfo, utils.CustomizeMap["PageVerify"])
 	if PageVerifyErr != nil {
 		response.FailWithMessage(PageVerifyErr.Error(), c)
 		return
 	}
-	err, list, total := service.GetUserInfoList(pageInfo)
+	err, list, total := service.GetUserInfoList(pageInfo.PageInfo,pageInfo.SysUser)
 	if err != nil {
 		response.FailWithMessage(fmt.Sprintf("获取数据失败，%v", err), c)
 	} else {
@@ -293,4 +293,14 @@ func DeleteUser(c *gin.Context) {
 	} else {
 		response.OkWithMessage("删除成功", c)
 	}
+}
+
+
+func KeppOnline(c *gin.Context) {
+	claims, _ := c.Get("claims")
+	//获取头像文件
+	// 这里我们通过断言获取 claims内的所有内容
+	waitUse := claims.(*request.CustomClaims)
+	service.KeepOnline(waitUse.ID)
+	response.Ok(c)
 }

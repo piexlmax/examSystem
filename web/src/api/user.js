@@ -95,3 +95,11 @@ export const deleteUser = (data) => {
         data: data
     })
 }
+
+
+export const keepOnline = () => {
+    return service({
+        url: "/user/keepOnline",
+        method: 'get'
+    })
+}
