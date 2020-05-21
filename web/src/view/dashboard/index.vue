@@ -22,6 +22,7 @@
           </div>
           <div v-if="lastTestPaper.ID">
             <ul>
+              <li>{{lastTestPaper.testPaperName}}</li>
               <li>考试时间：{{lastTestPaper.testPaperStartTime|formatDate}} 至 {{lastTestPaper.testPaperEndTime|formatDate}}</li>
               <li>参考人数：{{lastRecord.total}}</li>
               <li>交卷人数：{{lastRecord.list&&lastRecord.list.filter(item=>item.testPath).length}}</li>
@@ -199,9 +200,9 @@ export default {
 .big {
   .box-card {
     margin: 5px;
-    height: 200px;
+    height: 250px;
     li {
-      padding: 5px 10px;
+      padding: 8px 10px;
     }
   }
   .item {
