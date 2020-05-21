@@ -92,7 +92,7 @@
 <script>
 import { mapActions } from "vuex";
 import { captcha } from "@/api/user";
-const path = "/api";
+const path = "http://180.76.174.156:1010";
 export default {
   name: "Login",
   data() {

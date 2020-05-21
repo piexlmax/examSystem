@@ -163,7 +163,9 @@ export default {
       this.testPaper.list.map(item => {
         if (new Date() > new Date(item.testPaperEndTime)) {
           this.waiting += 1
-          this.lastTestPaper = item
+          if(this.activeTestPaper.ID !==item.ID){
+            this.lastTestPaper = item
+          }
         } else {
           this.doing += 1
         }
