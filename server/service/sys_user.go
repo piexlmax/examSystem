@@ -40,15 +40,15 @@ func Register(u model.SysUser) (err error, userInter model.SysUser) {
 // @return    err             error
 // @return    userInter       *SysUser
 
-func Login(u *model.SysUser,ip string) (err error, userInter *model.SysUser) {
+func Login(u *model.SysUser, ip string) (err error, userInter *model.SysUser) {
 	var user model.SysUser
 	u.Password = utils.MD5V([]byte(u.Password))
-	db:=global.GVA_DB.Where("username = ? AND password = ?", u.Username, u.Password).First(&user)
+	db := global.GVA_DB.Where("username = ? AND password = ?", u.Username, u.Password).First(&user)
 	err = db.Error
 	if err != nil {
 		return err, &user
 	}
-	err = db.Update("ip",ip).Update("online_time",time.Now()).Update("online_status",true).Error
+	err = db.Update("ip", ip).Update("online_time", time.Now()).Update("online_status", true).Error
 	if err != nil {
 		return err, &user
 	}
@@ -80,14 +80,15 @@ func ChangePassword(u *model.SysUser, newPassword string) (err error, userInter 
 // @return    list             interface{}
 // @return    total            int
 
-func GetUserInfoList(info request.PageInfo,user model.SysUser) (err error, list interface{}, total int) {
+func GetUserInfoList(info request.PageInfo, user model.SysUser) (err error, list interface{}, total int) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	db := global.GVA_DB
 	var userList []model.SysUser
-	db.Where("online_time > ?",time.Now().Add(-time.Minute * 10)).Find(&userList).Update("online_status",true)
-	if user.AuthorityId!=""{
-		db = db.Where("authority_id = ?",user.AuthorityId)
+	db.Find(&[]model.SysUser{}).Update("online_status", false)
+	db.Where("online_time > ?", time.Now().Add(-time.Minute*10)).Find(&userList).Update("online_status", true)
+	if user.AuthorityId != "" {
+		db = db.Where("authority_id = ?", user.AuthorityId)
 	}
 	err = db.Find(&userList).Count(&total).Error
 	err = db.Limit(limit).Offset(offset).Preload("Authority").Find(&userList).Error
@@ -119,10 +120,11 @@ func DeleteUser(id float64) (err error) {
 	return err
 }
 
-func KeepOnline(id uint){
+func KeepOnline(id uint) {
 	var user model.SysUser
-	global.GVA_DB.Where("id = ?",id).First(&user).Update("online_time",time.Now())
+	global.GVA_DB.Where("id = ?", id).First(&user).Update("online_time", time.Now())
 }
+
 // @title    UploadHeaderImg
 // @description   upload avatar, 用户头像上传更新地址
 // @auth                     （2020/04/05  20:22）
