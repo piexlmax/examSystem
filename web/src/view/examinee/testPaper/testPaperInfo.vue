@@ -20,18 +20,15 @@
         style="float:right;margin-right:20px;"
         type="primary"
       >下载答题模板</el-button>
-      <el-popover
-  placement="top"
-  width="160"
-  v-model="visible">
-  <p>确认答题无误后，点击“确定”提交试卷</p>
-  <div style="text-align: right; margin: 0">
-    <el-button size="mini" type="text" @click="visible = false">取消</el-button>
-    <el-button  @click="submitTest" type="primary" size="mini">确定</el-button>
-  </div>
-  <el-button slot="reference" style="float:right;margin-right:20px;" type="primary">提交答卷</el-button>
-</el-popover>
-      
+      <el-popover placement="top" v-model="visible" width="160">
+        <p>确认答题无误后，点击“确定”提交试卷</p>
+        <div style="text-align: right; margin: 0">
+          <el-button @click="visible = false" size="mini" type="text">取消</el-button>
+          <el-button @click="submitTest" size="mini" type="primary">确定</el-button>
+        </div>
+        <el-button slot="reference" style="float:right;margin-right:20px;" type="primary">提交答卷</el-button>
+      </el-popover>
+
       <div v-html="svg"></div>
     </div>
 
@@ -40,10 +37,10 @@
 
     <!--自定义右键菜单html代码-->
     <ul :style="{left:left+'px',top:top+'px'}" class="contextmenu" v-show="contextMenuVisible">
-      <li @click="download('flow')">流量文件:{{activeNode.flow?"下载":"？？"}}</li>
-      <li @click="download('configuration')">配置文件:{{activeNode.configuration?"下载":"？？"}}</li>
-      <li @click="download('log')">日志文件:{{activeNode.log?"下载":"？？"}}</li>
-      <li @click="download('sourceCode')">源码文件:{{activeNode.sourceCode?"下载":"？？"}}</li>
+      <li @click="download('flow')" v-if="activeNode.flow">下载流量文件</li>
+      <li @click="download('configuration')" v-if="activeNode.configuration">下载配置文件</li>
+      <li @click="download('log')" v-if="activeNode.log">下载日志文件</li>
+      <li @click="download('sourceCode')" v-if="activeNode.sourceCode">下载源码文件</li>
     </ul>
   </div>
 </template>
@@ -54,29 +51,29 @@ import {
   downloadTestPaperSvgNode,
   getActiveTestPaper,
   getTestPaperMould
-} from "@/api/testPaper";
+} from '@/api/testPaper'
 import {
   createExaminationRecord,
   findExaminationRecord
-} from "@/api/examinationRecord";
+} from '@/api/examinationRecord'
 
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
-import axios from "axios"; // 引入axios
+import axios from 'axios' // 引入axios
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
   timeout: 99999
-});
+})
 
 export default {
-  name: "TestPaperInfo",
+  name: 'TestPaperInfo',
   data() {
     return {
-      visible:false,
+      visible: false,
       examinationRecord: {},
       testPaper: {},
-      svg: "",
+      svg: '',
       contextMenuVisible: false,
       left: 0,
       top: 0,
@@ -88,107 +85,107 @@ export default {
       param: null,
       isCollapse: false,
       isMobile: false,
-      countDownList: "00天00时00分00秒"
-    };
+      countDownList: '00天00时00分00秒'
+    }
   },
   computed: {
-    ...mapGetters("user", ["userInfo"])
+    ...mapGetters('user', ['userInfo'])
   },
   methods: {
     timeFormat(param) {
-      return param < 10 ? "0" + param : param;
+      return param < 10 ? '0' + param : param
     },
-    
+
     countDown(time) {
       const timefunc = async () => {
-        let newTime = new Date().getTime(); // 对结束时间进行处理渲染到页面
-        let endTime = new Date(time).getTime();
-        let obj = null; // 如果活动未结束，对时间进行处理
+        let newTime = new Date().getTime() // 对结束时间进行处理渲染到页面
+        let endTime = new Date(time).getTime()
+        let obj = null // 如果活动未结束，对时间进行处理
         if (endTime - newTime > 0) {
-          let time = (endTime - newTime) / 1000; // 获取天、时、分、秒
-          let day = parseInt(time / (60 * 60 * 24));
-          let hou = parseInt((time % (60 * 60 * 24)) / 3600);
-          let min = parseInt(((time % (60 * 60 * 24)) % 3600) / 60);
-          let sec = parseInt(((time % (60 * 60 * 24)) % 3600) % 60);
+          let time = (endTime - newTime) / 1000 // 获取天、时、分、秒
+          let day = parseInt(time / (60 * 60 * 24))
+          let hou = parseInt((time % (60 * 60 * 24)) / 3600)
+          let min = parseInt(((time % (60 * 60 * 24)) % 3600) / 60)
+          let sec = parseInt(((time % (60 * 60 * 24)) % 3600) % 60)
           obj = {
             day: this.timeFormat(day),
             hou: this.timeFormat(hou),
             min: this.timeFormat(min),
             sec: this.timeFormat(sec)
-          };
+          }
         } else {
           // 活动已结束，全部设置为'00'
           obj = {
-            day: "00",
-            hou: "00",
-            min: "00",
-            sec: "00"
-          };
-          clearInterval(interval);
-          const res = await getActiveTestPaper();
-          this.status = res.data.status;
-          this.testPaper = res.data.testPaper;
+            day: '00',
+            hou: '00',
+            min: '00',
+            sec: '00'
+          }
+          clearInterval(interval)
+          const res = await getActiveTestPaper()
+          this.status = res.data.status
+          this.testPaper = res.data.testPaper
           if (this.status == 1) {
-            await this.getExamination();
+            await this.getExamination()
             if (this.examinationRecord.agreement) {
-              this.getTest(res.data.testPaper.ID);
+              this.getTest(res.data.testPaper.ID)
             }
           }
         }
         this.countDownList =
-          obj.day + "天" + obj.hou + "时" + obj.min + "分" + obj.sec + "秒";
-      };
-      var interval = setInterval(timefunc, 1000);
+          obj.day + '天' + obj.hou + '时' + obj.min + '分' + obj.sec + '秒'
+      }
+      var interval = setInterval(timefunc, 1000)
     },
     submitTest() {
       this.visible = false
-      this.param = new FormData();
-      this.$refs.fileupload.click();
+      this.param = new FormData()
+      this.$refs.fileupload.click()
     },
     async handlerUpload(e) {
-      this.param.append("file", e.target.files[0]);
-      this.param.append("testPaperId", Number(this.testPaper.ID));
-      this.param.append("sysUserId", Number(this.userInfo.ID));
-      const token = this.$store.getters["user/token"];
+      this.param.append('file', e.target.files[0])
+      this.param.append('testPaperId', Number(this.testPaper.ID))
+      this.param.append('sysUserId', Number(this.userInfo.ID))
+      const token = this.$store.getters['user/token']
       const res = await service.put(
-        "/examinationRecord/submitTest",
+        '/examinationRecord/submitTest',
         this.param,
         {
           headers: {
-            "x-token": token
+            'x-token': token
           }
         }
-      );
+      )
       if (res.data.code == 0) {
         this.$message({
-          type: "success",
-          message: "交卷成功"
-        });
+          type: 'success',
+          message: '交卷成功'
+        })
       } else {
         this.$message({
-          type: "error",
+          type: 'error',
           message: res.data.msg
-        });
+        })
       }
     },
     async getTestPaperMould(row) {
-      const res = await getTestPaperMould({ ID: row.ID });
-      const blob = new Blob([res]);
-      const fileName = row.testPaperMould.split("/mould/")[1];
-      if ("download" in document.createElement("a")) {
+      const res = await getTestPaperMould({ ID: row.ID })
+      const blob = new Blob([res])
+      const fileName = row.testPaperMould.split('/mould/')[1]
+      if ('download' in document.createElement('a')) {
         // 不是IE浏览器
-        let url = window.URL.createObjectURL(blob);
-        let link = document.createElement("a");
-        link.style.display = "none";
-        link.href = url;
-        link.setAttribute("download", fileName);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link); // 下载完成移除元素
-        window.URL.revokeObjectURL(url); // 释放掉blob对象
+        let url = window.URL.createObjectURL(blob)
+        let link = document.createElement('a')
+        link.style.display = 'none'
+        link.href = url
+        link.setAttribute('download', fileName)
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link) // 下载完成移除元素
+        window.URL.revokeObjectURL(url) // 释放掉blob对象
       } else {
         // IE 10+
-        window.navigator.msSaveBlob(blob, fileName);
+        window.navigator.msSaveBlob(blob, fileName)
       }
     },
     async agree() {
@@ -196,101 +193,111 @@ export default {
         sysUserId: Number(this.userInfo.ID),
         testPaperId: Number(this.testPaper.ID),
         agreement: true
-      });
+      })
       if (res.code == 0) {
-        await this.getExamination();
-        this.countDown(this.testPaper.testPaperEndTime);
-        this.getTest(this.testPaper.ID);
+        await this.getExamination()
+        this.countDown(this.testPaper.testPaperEndTime)
+        this.getTest(this.testPaper.ID)
       }
     },
     async download(type) {
       const res = await downloadTestPaperSvgNode({
         path: this.activeNode[type]
-      });
-      const blob = new Blob([res]);
-      const fileName = this.activeNode[type].split("/" + type + "/")[1];
-      if ("download" in document.createElement("a")) {
+      })
+      const blob = new Blob([res])
+      const fileName = this.activeNode[type].split('/' + type + '/')[1]
+      if ('download' in document.createElement('a')) {
         // 不是IE浏览器
-        let url = window.URL.createObjectURL(blob);
-        let link = document.createElement("a");
-        link.style.display = "none";
-        link.href = url;
-        link.setAttribute("download", fileName);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link); // 下载完成移除元素
-        window.URL.revokeObjectURL(url); // 释放掉blob对象
+        let url = window.URL.createObjectURL(blob)
+        let link = document.createElement('a')
+        link.style.display = 'none'
+        link.href = url
+        link.setAttribute('download', fileName)
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link) // 下载完成移除元素
+        window.URL.revokeObjectURL(url) // 释放掉blob对象
       } else {
         // IE 10+
-        window.navigator.msSaveBlob(blob, fileName);
+        window.navigator.msSaveBlob(blob, fileName)
       }
     },
     async openContextMenu(dom) {
-      window.event.returnValue = false;
-      var oEvent = window.event;
-      this.active = dom;
+      window.event.returnValue = false
+      var oEvent = window.event
+      this.active = dom
       const res = await findAndCreateTestPaperSvgNode({
         nodeId: this.active.id,
         testPaperID: Number(this.testPaper.ID)
-      });
+      })
       if (res.code == 0) {
-        this.activeNode = res.data.node;
-        this.contextMenuVisible = true;
-        let width;
+        this.activeNode = res.data.node
+        this.contextMenuVisible = true
+        let width
         if (this.isCollapse) {
-          width = 54;
+          width = 54
         } else {
-          width = 220;
+          width = 220
         }
         if (this.isMobile) {
-          width = 0;
+          width = 0
         }
-        this.left = oEvent.clientX - width;
-        this.top = oEvent.clientY + 10;
+        this.left = oEvent.clientX - width
+        this.top = oEvent.clientY + 10
       }
     },
     async getTest(id) {
-      const res = await getTestPaperSvg({ ID: Number(id) });
+      const res = await getTestPaperSvg({ ID: Number(id) })
       if (res.code == 0) {
-        this.svg = res.data.retestPaper;
+        this.svg = res.data.retestPaper
         setTimeout(() => {
-          const g = document.getElementsByTagName("g");
+           this.testPaper.testPaperSvgNodes.map(item => {
+            if (
+              item.configuration ||
+              item.flow ||
+              item.log ||
+              item.sourceCode
+            ) {
+              document.getElementById(item.nodeId).parentNode.innerHTML = document.getElementById(item.nodeId).parentNode.innerHTML + `<circle r="4" stroke="#f56c6c" cx="60" fill="#f56c6c" />`
+            }
+          })
+          const g = document.getElementsByTagName('g')
           for (let key = 0; key < g.length; key++) {
-          const paths = g[key].getElementsByTagName("path");
-          if (paths.length > 0) {
-            paths[0].oncontextmenu = () => {
-              this.openContextMenu(paths[0]);
-            };
+            const paths = g[key].getElementsByTagName('path')
+            if (paths.length > 0) {
+              paths[0].oncontextmenu = () => {
+                this.openContextMenu(paths[0])
+              }
+            }
           }
-        }
-        }, 0);
+        }, 0)
       }
     },
     async getExamination() {
       const res = await findExaminationRecord({
         sysUserId: this.userInfo.ID,
         testPaperId: this.testPaper.ID
-      });
-      this.examinationRecord = res.data.examinationRecord;
+      })
+      this.examinationRecord = res.data.examinationRecord
     }
   },
   async created() {
-    this.$bus.on("mobile", isMobile => {
-      this.isMobile = isMobile;
-    });
-    this.$bus.on("collapse", isCollapse => {
-      this.isCollapse = isCollapse;
-    });
-    const res = await getActiveTestPaper();
-    this.status = res.data.status;
-    this.testPaper = res.data.testPaper;
-    if(this.status == 2){
-      this.countDown(this.testPaper.testPaperStartTime);
+    this.$bus.on('mobile', isMobile => {
+      this.isMobile = isMobile
+    })
+    this.$bus.on('collapse', isCollapse => {
+      this.isCollapse = isCollapse
+    })
+    const res = await getActiveTestPaper()
+    this.status = res.data.status
+    this.testPaper = res.data.testPaper
+    if (this.status == 2) {
+      this.countDown(this.testPaper.testPaperStartTime)
     }
     if (this.status == 1) {
-      await this.getExamination();
+      await this.getExamination()
       if (this.examinationRecord.agreement) {
-        this.getTest(res.data.testPaper.ID);
+        this.getTest(res.data.testPaper.ID)
         this.countDown(this.testPaper.testPaperEndTime)
       }
     }
@@ -298,17 +305,17 @@ export default {
   watch: {
     contextMenuVisible() {
       if (this.contextMenuVisible) {
-        document.body.addEventListener("click", () => {
-          this.contextMenuVisible = false;
-        });
+        document.body.addEventListener('click', () => {
+          this.contextMenuVisible = false
+        })
       } else {
-        document.body.removeEventListener("click", () => {
-          this.contextMenuVisible = false;
-        });
+        document.body.removeEventListener('click', () => {
+          this.contextMenuVisible = false
+        })
       }
     }
   }
-};
+}
 </script>
 <style lang="scss">
 .svgInfo {

@@ -1,213 +1,209 @@
 <template>
- <div class="big">
-     <div class="mid">
-         <el-row :gutter="32">
-             <el-col :xs="24" :sm="24" :lg="8">
-                 <div class="chart-wrapper">
-                     <raddar-chart />
-                 </div>
-             </el-col>
-             <el-col :xs="24" :sm="24" :lg="8">
-                 <div class="chart-wrapper">
-                     <stackMap />
-                 </div>
-             </el-col>
-             <el-col :xs="24" :sm="24" :lg="8">
-                 <div class="chart-wrapper">
-                     <Sunburst/>
-                 </div>
-             </el-col>
-         </el-row>
-     </div>
-     <div class="top">
-         <div id="main" class="chart-container"></div>
-     </div>
-      <div class="bottom">
-         <el-row :gutter="32">
-             <el-col :xs="24" :sm="24" :lg="12">
-                 <div class="chart-player">
-                     <musicPlayer />
-                 </div>
-             </el-col>
-             <el-col :xs="24" :sm="24" :lg="12">
-                 <div  class="chart-player">
-                     <todo-list />
-                 </div>
-             </el-col>
-         </el-row>
-     </div>
- </div>
-
+  <div class="big">
+    <el-row v-if="userInfo.authorityId !== '777'">
+      <el-col :span="12">
+        <el-card class="box-card">
+          <div slot="header">
+            <span>考题概览</span>
+          </div>
+          <div>
+            <ul>
+              <li>共有考试{{testPaper.total}}场</li>
+              <li>已进行{{doing}}场</li>
+              <li>未开始{{waiting}}场</li>
+            </ul>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card class="box-card">
+          <div slot="header">
+            <span>上次考试</span>
+          </div>
+          <div v-if="lastTestPaper.ID">
+            <ul>
+              <li>考试时间：{{lastTestPaper.testPaperStartTime|formatDate}} 至 {{lastTestPaper.testPaperEndTime|formatDate}}</li>
+              <li>参考人数：{{lastRecord.total}}</li>
+              <li>交卷人数：{{lastRecord.list&&lastRecord.list.filter(item=>item.testPath).length}}</li>
+              <li>平均分:{{mean}}</li>
+            </ul>
+          </div>
+          <div v-else>暂无上一场考试</div>
+        </el-card>
+      </el-col>
+    </el-row>
+    <el-row v-if="userInfo.authorityId == '777'">
+      <el-col :span="12">
+        <el-card class="box-card">
+          <div slot="header">
+            <span>考题概览</span>
+          </div>
+          <div>
+            <ul>
+              <li>共有考试{{testPaper.total}}场</li>
+              <li>已进行{{doing}}场</li>
+              <li>未开始{{waiting}}场</li>
+            </ul>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card class="box-card">
+          <div slot="header">
+            <span>上次考试</span>
+          </div>
+          <div v-if="userLastRecord.sysUserId">
+            <ul>
+              <li>{{userLastRecord.testPaper.testPaperName}}</li>
+              <li>考试时间：{{userLastRecord.testPaper.testPaperStartTime|formatDate}} 至 {{userLastRecord.testPaper.testPaperEndTime|formatDate}}</li>
+              <li>得分:{{userLastRecord.score}}</li>
+            </ul>
+          </div>
+          <div v-else>暂无上一场考试</div>
+        </el-card>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="12">
+        <el-card class="box-card">
+          <div slot="header">
+            <span>正在考试</span>
+          </div>
+          <div v-if="activeTestPaper.ID">
+            <ul>
+              <li>{{activeTestPaper.testPaperName}}</li>
+              <li v-if="userInfo.authorityId !== '777'">{{activeTestPaper.testPaperAuthor}}</li>
+              <li>{{activeTestPaper.testPaperSubmitTimes?"允许多次提交":"只允许单次提交"}}</li>
+              <li>考试时间：{{activeTestPaper.testPaperStartTime|formatDate}} 至 {{activeTestPaper.testPaperEndTime|formatDate}}</li>
+            </ul>
+          </div>
+          <div v-else>暂无正在进行的考试</div>
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card class="box-card">
+          <div slot="header">
+            <span>即将开考</span>
+          </div>
+          <div v-if="nextTestPaper.ID">
+            <ul>
+              <li>{{nextTestPaper.testPaperName}}</li>
+              <li v-if="userInfo.authorityId !== '777'">{{nextTestPaper.testPaperAuthor}}</li>
+              <li>{{nextTestPaper.testPaperSubmitTimes?"允许多次提交":"只允许单次提交"}}</li>
+              <li>考试时间：{{nextTestPaper.testPaperStartTime|formatDate}} 至 {{nextTestPaper.testPaperEndTime|formatDate}}</li>
+            </ul>
+          </div>
+          <div v-else>暂无正在进行的考试</div>
+        </el-card>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
-import echarts from 'echarts'
-require('echarts/theme/macarons') // echarts theme
-import RaddarChart from "./component/RaddarChart"
-import stackMap from "./component/stackMap"
-import Sunburst from "./component/Sunburst"
-import musicPlayer from "./component/musicPlayer"
-import TodoList from "./component/todoList"
-
+import { getTestPaperList } from '@/api/testPaper' //  此处请自行替换地址
+import { getExaminationRecordList } from '@/api/examinationRecord'
+import { formatTimeToStr } from '@/utils/data'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Dashboard',
   data() {
     return {
-
+      testPaper: {},
+      doing: 0,
+      waiting: 0,
+      lastTestPaper: {},
+      lastRecord: {},
+      activeTestPaper: {},
+      nextTestPaper: {},
+      userLastRecord: {}
     }
   },
-    components:{
-        RaddarChart, //雷达图
-        stackMap, //堆叠图
-        Sunburst, //旭日图
-        musicPlayer,  //音乐播放器
-        TodoList //TodoList
-    },
-  mounted() {
-      let myChart = echarts.init(document.getElementById('main'),'macarons');
-      // let stackMap = echarts.init(document.getElementById('stackMap'));
-      let  option = {
-          legend: {},
-          tooltip: {
-              trigger: 'axis',
-              showContent: false
-          },
-          dataset: {
-              source: [
-                  ['product', '2012', '2013', '2014', '2015', '2016', '2017','2018','2019','2020'],
-                  ['Matcha Latte', 41.1, 30.4, 65.1, 53.3, 83.8, 70.0,6.4, 65.2, 82.5],
-                  ['Milk Tea', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1,2, 67.1, 69.2],
-                  ['Cheese Cocoa', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5,65.1, 53.3, 83.8],
-                  ['Walnut Brownie', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1,86.5, 92.1, 85.7]
-              ]
-          },
-          xAxis: {
-              type: 'category',
-              axisLabel: {
-                  show: true,
-                  textStyle: {
-                      color: 'rgb(192,192,192)',  //更改坐标轴文字颜色
-                      fontSize : 14    //更改坐标轴文字大小
-                  }
-              },
-              axisTick: {
-                  show: false
-              },
-              axisLine:{
-                  lineStyle:{
-                      color:'rgb(192,192,192)' //更改坐标轴颜色
-                  }
-              },
-          },
-          yAxis: {
-              gridIndex:0,
-              axisLabel: {
-                  show: true,
-                  textStyle: {
-                      color: 'rgb(192,192,192)',  //更改坐标轴文字颜色
-                      fontSize: 14    //更改坐标轴文字大小
-                  }
-              },
-              axisTick: {
-                  show: false
-              },
-              axisLine: {
-                  lineStyle: {
-                      color: 'rgb(192,192,192)' //更改坐标轴颜色
-                  }
-              }
-          },
-          grid: {top: '55%'},
-          series: [
-              {type: 'line', smooth: true, seriesLayoutBy: 'row'},
-              {type: 'line', smooth: true, seriesLayoutBy: 'row'},
-              {type: 'line', smooth: true, seriesLayoutBy: 'row'},
-              {type: 'line', smooth: true, seriesLayoutBy: 'row'},
-              {
-                  type: 'pie',
-                  id: 'pie',
-                  radius: '30%',
-                  center: ['50%', '25%'],
-                  label: {
-                      formatter: '{b}: {@2012} ({d}%)'
-                  },
-                  encode: {
-                      itemName: 'product',
-                      value: '2012',
-                      tooltip: '2012'
-                  }
-              }
-          ]
-      };
-      //点记标记点时的动效
-      myChart.on('updateAxisPointer', function (event) {
-          var xAxisInfo = event.axesInfo[0];
-          if (xAxisInfo) {
-              var dimension = xAxisInfo.value + 1;
-              myChart.setOption({
-                  series: {
-                      id: 'pie',
-                      label: {
-                          formatter: '{b}: {@[' + dimension + ']} ({d}%)'
-                      },
-                      encode: {
-                          value: dimension,
-                          tooltip: dimension
-                      }
-                  }
-              });
-          }
-      });
+  computed: {
+    ...mapGetters('user', ['userInfo']),
+    mean() {
+      let sum = 0
+      this.lastRecord &&
+        this.lastRecord.list.map(item => {
+          sum += item.score
+        })
 
-      window.addEventListener('resize',function() {myChart.resize()});
-      myChart.setOption(option);
+      sum = sum.toFixed(2)
+      return sum
+    }
+  },
+  filters: {
+    formatDate: function(time) {
+      if (time != null && time != '') {
+        var date = new Date(time)
+        return formatTimeToStr(date, 'yyyy-MM-dd hh:mm:ss')
+      } else {
+        return ''
+      }
+    }
+  },
+  async created() {
+    const res = await getTestPaperList({ page: 1, pageSize: 99999999 })
+    this.testPaper = res.data
+    this.testPaper.list &&
+      this.testPaper.list.sort(function(a, b) {
+        return (
+          new Date(a.testPaperEndTime).getTime() -
+          new Date(b.testPaperEndTime).getTime()
+        )
+      })
+    this.testPaper.list &&
+      this.testPaper.list.map(item => {
+        if (item.testPaperStatus) {
+          this.activeTestPaper = item
+        }
+      })
 
+    this.testPaper.list &&
+      this.testPaper.list.map(item => {
+        if (new Date() > new Date(item.testPaperEndTime)) {
+          this.waiting += 1
+          this.lastTestPaper = item
+        } else {
+          this.doing += 1
+        }
+        if (
+          new Date(item.testPaperEndTime) >
+            new Date(this.activeTestPaper.testPaperEndTime) &&
+          !this.nextTestPaper.ID
+        ) {
+          this.nextTestPaper = item
+        }
+      })
+    if (this.lastTestPaper.ID) {
+      const laseRecord = await getExaminationRecordList({
+        page: 1,
+        pageSize: 9999999,
+        testPaperId: this.lastTestPaper.ID
+      })
+      this.lastRecord = laseRecord.data
+      if (this.userInfo.authorityId === '777') {
+        this.userLastRecord =
+          laseRecord.data.list.filter(
+            item => item.sysUserId == this.userInfo.ID
+          )[0] || {}
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-    .big{
-        margin:100px 0 0 0;
-        padding-top: 0;
-        background-color: rgb(243,243,243);;
-        .top{
-            width: 100%;
-            height: 360px;
-            margin-top: 20px;
-            overflow: hidden;
-            .chart-container{
-                position: relative;
-                width: 100%;
-                height: 100%;
-                padding: 20px;
-                background-color: #fff;
-            }
-        }
-        .mid{
-            width: 100%;
-            height: 380px;
-            .chart-wrapper {
-                height: 340px;
-                background: #fff;
-                padding: 16px 16px 0;
-                margin-bottom: 32px;
-            }
-        }
-        .bottom{
-            width: 100%;
-            height: 300px;
-            margin: 20px 0;
-            .el-row{
-                margin-right: 4px !important;
-            }
-            .chart-player{
-                width: 100%;
-                height: 270px;
-                padding: 10px;
-                background-color: #fff;
-            }
-        }
+.big {
+  .box-card {
+    margin: 5px;
+    height: 200px;
+    li {
+      padding: 5px 10px;
     }
-
+  }
+  .item {
+    padding: 18px 0;
+  }
+}
 </style>

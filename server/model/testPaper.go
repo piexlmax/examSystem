@@ -17,7 +17,7 @@ type TestPaper struct {
 	TestPaperAuthor      string             `json:"testPaperAuthor" gorm:"column:test_paper_author"`
 	TestPaperSvg         string             `json:"testPaperSvg" gorm:"column:test_paper_svg"`
 	TestPaperMould       string             `json:"testPaperMould" gorm:"column:test_paper_mould"`
-	TestPaperSvgNodes    []TestPaperSvgNode `json:"-"`
+	TestPaperSvgNodes    []TestPaperSvgNode `json:"testPaperSvgNodes"`
 }
 
 type TestPaperSvgNode struct {

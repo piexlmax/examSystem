@@ -9,7 +9,7 @@ import (
 func InitTestPaperRouter(Router *gin.RouterGroup) {
 	TestPaperRouter := Router.Group("testPaper").Use(middleware.JWTAuth()).Use(middleware.CasbinHandler())
 	{
-		TestPaperRouter.GET("getActiveTestPaper",v1.GetActiveTestPaper)   // 发布考题
+		TestPaperRouter.GET("getActiveTestPaper",v1.GetActiveTestPaper)   // 获取考题
 		TestPaperRouter.PUT("publicTestPaper",v1.PublicTestPaper)   // 发布考题
 		TestPaperRouter.DELETE("clearTestPaperSvgNode",v1.ClearTestPaperSvgNode)   // 删除节点下文件
 		TestPaperRouter.POST("downloadTestPaperSvgNode",v1.DownloadTestPaperSvgNode) // 下载节点文件

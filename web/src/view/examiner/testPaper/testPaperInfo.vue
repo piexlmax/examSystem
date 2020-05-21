@@ -10,18 +10,18 @@
     <div v-html="svg"></div>
     <!--自定义右键菜单html代码-->
     <ul :style="{left:left+'px',top:top+'px'}" class="contextmenu" v-show="contextMenuVisible">
-      <li @click="upload('flow')" v-if="!activeNode.flow">流量文件:上传</li>
-      <li @click="download('flow')" v-if="activeNode.flow">流量文件:下载</li>
-      <li @click="clear('flow')" v-if="activeNode.flow">流量文件:清除</li>
-      <li @click="upload('configuration')" v-if="!activeNode.configuration">配置文件:上传</li>
-      <li @click="download('configuration')" v-if="activeNode.configuration">配置文件:下载</li>
-      <li @click="clear('configuration')" v-if="activeNode.configuration">配置文件:清除</li>
-      <li @click="upload('log')" v-if="!activeNode.log">日志文件:上传</li>
-      <li @click="download('log')" v-if="activeNode.log">日志文件:下载</li>
-      <li @click="clear('log')" v-if="activeNode.log">日志文件:清除</li>
-      <li @click="upload('sourceCode')" v-if="!activeNode.sourceCode">源码文件:上传</li>
-      <li @click="download('sourceCode')" v-if="activeNode.sourceCode">源码文件:下载</li>
-      <li @click="clear('sourceCode')" v-if="activeNode.sourceCode">源码文件:清除</li>
+      <li @click="upload('flow')" v-if="!activeNode.flow">上传流量文件</li>
+      <li @click="download('flow')" v-if="activeNode.flow">下载流量文件</li>
+      <li @click="clear('flow')" v-if="activeNode.flow">清除流量文件</li>
+      <li @click="upload('configuration')" v-if="!activeNode.configuration">上传配置文件</li>
+      <li @click="download('configuration')" v-if="activeNode.configuration">下载配置文件</li>
+      <li @click="clear('configuration')" v-if="activeNode.configuration">清除配置文件</li>
+      <li @click="upload('log')" v-if="!activeNode.log">上传日志文件</li>
+      <li @click="download('log')" v-if="activeNode.log">下载日志文件</li>
+      <li @click="clear('log')" v-if="activeNode.log">清除日志文件</li>
+      <li @click="upload('sourceCode')" v-if="!activeNode.sourceCode">上传源码文件</li>
+      <li @click="download('sourceCode')" v-if="activeNode.sourceCode">下载源码文件</li>
+      <li @click="clear('sourceCode')" v-if="activeNode.sourceCode">清除源码文件</li>
     </ul>
   </div>
 </template>

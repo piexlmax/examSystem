@@ -247,7 +247,7 @@ func PublicTestPaper(testPaper *model.TestPaper) (err error) {
 }
 
 func GetActiveTestPaper() (err error, testPaper model.TestPaper, status int) {
-	flag := global.GVA_DB.Where("test_paper_status = ?", true).First(&testPaper).RecordNotFound()
+	flag := global.GVA_DB.Where("test_paper_status = ?", true).Preload("TestPaperSvgNodes").First(&testPaper).RecordNotFound()
 	if flag {
 		return nil, testPaper, 0
 	} else {
