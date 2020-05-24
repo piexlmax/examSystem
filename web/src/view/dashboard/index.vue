@@ -94,7 +94,7 @@
               <li>考试时间：{{nextTestPaper.testPaperStartTime|formatDate}} 至 {{nextTestPaper.testPaperEndTime|formatDate}}</li>
             </ul>
           </div>
-          <div v-else>暂无正在进行的考试</div>
+          <div v-else>暂无正在下一次的考试</div>
         </el-card>
       </el-col>
     </el-row>
